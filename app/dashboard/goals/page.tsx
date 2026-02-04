@@ -13,6 +13,7 @@ import {
   Calendar,
   Edit2,
   Trash2,
+  PiggyBank,
 } from "lucide-react";
 import type { Database } from "@/types/database";
 
@@ -46,6 +47,8 @@ export default function GoalsPage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null);
+  const [addSavingsGoalId, setAddSavingsGoalId] = useState<number | null>(null);
+  const [addSavingsAmount, setAddSavingsAmount] = useState("");
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -72,8 +75,9 @@ export default function GoalsPage() {
 
       if (error) throw error;
 
-      const goalsWithCalc: GoalWithCalculations[] = (data as SavingsGoal[] || []).map((goal) => {
-        // 金額やIDの型安全な変換
+      const goalsWithCalc: GoalWithCalculations[] = (
+        (data as SavingsGoal[]) || []
+      ).map((goal) => {
         const targetAmount = Number(goal.target_amount) || 0;
         const currentAmount = Number(goal.current_amount) || 0;
         const progress =
@@ -83,7 +87,6 @@ export default function GoalsPage() {
         let daysRemaining: number | null = null;
         let monthlyRequired = 0;
 
-        // 日付のバリデーション
         let validDeadline = null;
         if (goal.deadline) {
           const deadlineDate = new Date(goal.deadline);
@@ -107,7 +110,9 @@ export default function GoalsPage() {
           monthly_required_amount: Math.max(monthlyRequired, 0),
           days_remaining: daysRemaining,
           months_remaining: monthsRemaining,
-          deadline: validDeadline ? validDeadline.toISOString().slice(0, 10) : goal.deadline || "",
+          deadline: validDeadline
+            ? validDeadline.toISOString().slice(0, 10)
+            : goal.deadline || "",
         };
       });
 
@@ -252,6 +257,44 @@ export default function GoalsPage() {
     } catch (err) {
       console.error("Error deleting goal:", err);
       setError("目標の削除に失敗しました");
+    }
+  };
+
+  const startAddSavings = (goalId: number) => {
+    setAddSavingsGoalId(goalId);
+    setAddSavingsAmount("");
+  };
+
+  const handleAddSavings = async (goal: GoalWithCalculations) => {
+    setError(null);
+    const amount = parseFloat(addSavingsAmount);
+
+    if (isNaN(amount) || amount <= 0) {
+      setError("金額を正しく入力してください");
+      return;
+    }
+
+    const newCurrentAmount = goal.current_amount + amount;
+
+    try {
+      const { error: updateError } = await supabase
+        .from("savings_goals")
+        .update({
+          current_amount: newCurrentAmount,
+        } as any)
+        .eq("goal_id", goal.goal_id);
+
+      if (updateError) throw updateError;
+
+      setSuccess(true);
+      setAddSavingsGoalId(null);
+      setAddSavingsAmount("");
+      fetchGoals();
+
+      setTimeout(() => setSuccess(false), 3000);
+    } catch (err) {
+      console.error("Error adding savings:", err);
+      setError("貯金の追加に失敗しました");
     }
   };
 
@@ -555,6 +598,13 @@ export default function GoalsPage() {
                     {/* アクションボタン */}
                     <div className="mb-4 flex gap-2">
                       <button
+                        onClick={() => startAddSavings(goal.goal_id)}
+                        className="flex items-center gap-1 rounded-md bg-green-50 px-3 py-1.5 text-sm font-medium text-green-600 hover:bg-green-100"
+                      >
+                        <PiggyBank className="h-4 w-4" />
+                        貯金を追加
+                      </button>
+                      <button
                         onClick={() => startEditGoal(goal)}
                         className="flex items-center gap-1 rounded-md bg-blue-50 px-3 py-1.5 text-sm font-medium text-blue-600 hover:bg-blue-100"
                       >
@@ -569,6 +619,43 @@ export default function GoalsPage() {
                         削除
                       </button>
                     </div>
+
+                    {/* 貯金追加フォーム */}
+                    {addSavingsGoalId === goal.goal_id && (
+                      <div className="mb-4 rounded-md bg-green-50 p-4">
+                        <p className="mb-3 text-sm font-medium text-green-800">
+                          貯金額を入力してください
+                        </p>
+                        <div className="flex gap-2">
+                          <input
+                            type="number"
+                            value={addSavingsAmount}
+                            onChange={(e) =>
+                              setAddSavingsAmount(e.target.value)
+                            }
+                            min="0"
+                            step="100"
+                            placeholder="金額を入力"
+                            className="flex-1 rounded-md border border-green-300 px-3 py-2 text-sm focus:border-green-500 focus:outline-none focus:ring-1 focus:ring-green-500"
+                          />
+                          <button
+                            onClick={() => handleAddSavings(goal)}
+                            className="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700"
+                          >
+                            追加
+                          </button>
+                          <button
+                            onClick={() => {
+                              setAddSavingsGoalId(null);
+                              setAddSavingsAmount("");
+                            }}
+                            className="rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300"
+                          >
+                            キャンセル
+                          </button>
+                        </div>
+                      </div>
+                    )}
 
                     {/* 削除確認 */}
                     {deleteConfirm === goal.goal_id && (

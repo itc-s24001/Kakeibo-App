@@ -20,6 +20,7 @@ interface TransactionWithCategory extends Transaction {
 interface MonthlySummary {
   totalIncome: number;
   totalExpense: number;
+  totalGoalsSavings: number;
   remainingBudget: number;
 }
 
@@ -34,6 +35,7 @@ export default function DashboardHome() {
   const [summary, setSummary] = useState<MonthlySummary>({
     totalIncome: 0,
     totalExpense: 0,
+    totalGoalsSavings: 0,
     remainingBudget: 0,
   });
   const [activeGoals, setActiveGoals] = useState<GoalWithCalculations[]>([]);
@@ -136,13 +138,16 @@ export default function DashboardHome() {
         }
       }
 
+      // 目標貯金額として月々必要額の合計を使用
+      const totalGoalsSavings = totalMonthlyRequired;
+
       // 残り使えるお金 = 今月の収入 - (今月の支出 + 目標の月々必要額)
-      const remainingBudget =
-        totalIncome - (totalExpense + totalMonthlyRequired);
+      const remainingBudget = totalIncome - (totalExpense + totalGoalsSavings);
 
       setSummary({
         totalIncome,
         totalExpense,
+        totalGoalsSavings,
         remainingBudget,
       });
 
@@ -164,7 +169,7 @@ export default function DashboardHome() {
 
       if (recentError) throw recentError;
 
-      setRecentTransactions((recentTxs ?? []) as TransactionWithCategory[]); // 型アサーション修正
+      setRecentTransactions((recentTxs ?? []) as TransactionWithCategory[]);
     } catch (err) {
       console.error("Error fetching dashboard data:", err);
     } finally {
@@ -176,7 +181,7 @@ export default function DashboardHome() {
     if (user) {
       fetchDashboardData();
     }
-  }, [user, fetchDashboardData]); // fetchDashboardDataを依存に追加
+  }, [user, fetchDashboardData]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -249,27 +254,29 @@ export default function DashboardHome() {
               </span>
             </div>
 
+            {/* 目標の月々必要額 */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <div className="mr-3 rounded-full bg-purple-100 p-2">
+                  <Target className="h-5 w-5 text-purple-600" />
+                </div>
+                <span className="text-sm text-gray-600">目標貯金</span>
+              </div>
+              <span className="text-lg font-semibold text-gray-900">
+                ¥{summary.totalGoalsSavings.toLocaleString()}
+              </span>
+            </div>
+
             {/* 区切り線 */}
             <div className="border-t border-gray-200"></div>
 
             {/* 残り使えるお金 */}
             <div className="rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 p-4">
               <div className="mb-2 text-center text-sm text-gray-600">
-                使えるお金
+                残り使えるお金
               </div>
               <div className="text-center text-3xl font-bold text-indigo-600">
                 ¥{summary.remainingBudget.toLocaleString()}
-              </div>
-              <div className="mt-2 text-center text-xs text-gray-500">
-                予算に対して{" "}
-                {summary.totalIncome > 0
-                  ? Math.round(
-                      ((summary.totalIncome - summary.totalExpense) /
-                        summary.totalIncome) *
-                        100,
-                    )
-                  : 0}
-                %
               </div>
             </div>
           </div>
