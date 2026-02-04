@@ -100,8 +100,8 @@ export default function DashboardHome() {
       // 型アサーションを追加
       const goalsArr = (goals ?? []) as SavingsGoal[];
 
-      // 目標の月々必要額の合計を計算
-      let totalMonthlyRequired = 0;
+      // 目標の現在貯金額の合計を計算
+      let totalCurrentSavings = 0;
       const goalsWithCalc: GoalWithCalculations[] = [];
 
       if (goalsArr) {
@@ -126,7 +126,7 @@ export default function DashboardHome() {
             }
           }
 
-          totalMonthlyRequired += monthlyRequired;
+          totalCurrentSavings += currentAmount;
 
           goalsWithCalc.push({
             ...goal,
@@ -138,10 +138,10 @@ export default function DashboardHome() {
         }
       }
 
-      // 目標貯金額として月々必要額の合計を使用
-      const totalGoalsSavings = totalMonthlyRequired;
+      // 目標貯金額として現在の貯金額の合計を使用
+      const totalGoalsSavings = totalCurrentSavings;
 
-      // 残り使えるお金 = 今月の収入 - (今月の支出 + 目標の月々必要額)
+      // 残り使えるお金 = 今月の収入 - (今月の支出 + 目標貯金)
       const remainingBudget = totalIncome - (totalExpense + totalGoalsSavings);
 
       setSummary({
