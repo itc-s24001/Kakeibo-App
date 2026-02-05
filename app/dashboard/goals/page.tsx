@@ -784,7 +784,7 @@ export default function GoalsPage() {
               <span>入力</span>
             </button>
             <button
-              onClick={() => router.push("/stats")}
+              onClick={() => router.push("/dashboard/stats")}
               className="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600"
             >
               <span className="text-lg">📊</span>
