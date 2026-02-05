@@ -336,12 +336,12 @@ export default function HistoryPage() {
                     {total && (
                       <div className="w-full space-y-1">
                         {total.income > 0 && (
-                          <div className="text-xs font-bold leading-tight text-blue-600">
+                          <div className="text-sm font-bold leading-tight text-blue-600">
                             +{total.income.toLocaleString()}
                           </div>
                         )}
                         {total.expense > 0 && (
-                          <div className="text-xs font-bold leading-tight text-red-600">
+                          <div className="text-sm font-bold leading-tight text-red-600">
                             -{total.expense.toLocaleString()}
                           </div>
                         )}
@@ -410,7 +410,7 @@ export default function HistoryPage() {
                               <span className="text-xs text-gray-500">
                                 収入
                               </span>
-                              <span className="font-semibold text-blue-600">
+                              <span className="text-lg font-semibold text-blue-600">
                                 +¥{total.income.toLocaleString()}
                               </span>
                             </div>
@@ -420,7 +420,7 @@ export default function HistoryPage() {
                               <span className="text-xs text-gray-500">
                                 支出
                               </span>
-                              <span className="font-semibold text-red-600">
+                              <span className="text-lg font-semibold text-red-600">
                                 -¥{total.expense.toLocaleString()}
                               </span>
                             </div>
@@ -456,7 +456,7 @@ export default function HistoryPage() {
                           </div>
                           <div className="flex items-center gap-2">
                             <span
-                              className={`text-base font-semibold ${
+                              className={`text-lg font-semibold ${
                                 transaction.type === "income"
                                   ? "text-blue-600"
                                   : "text-red-600"
