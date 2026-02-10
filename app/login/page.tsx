@@ -69,12 +69,20 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-md">
+        {/* ロゴ */}
+        <div className="mb-8 text-center">
+          <h1 className="text-4xl font-bold text-gray-900">ためるん</h1>
+          <p className="mt-2 text-base text-gray-600">
+            シンプルで使いやすい家計簿アプリ
+          </p>
+        </div>
+
         <div className="rounded-lg bg-white shadow-lg">
           {/* タブヘッダー */}
           <div className="flex border-b">
             <button
               onClick={() => handleTabChange("login")}
-              className={`flex-1 px-6 py-4 text-center font-medium transition-colors ${
+              className={`flex-1 px-6 py-4 text-center text-base font-medium transition-colors ${
                 activeTab === "login"
                   ? "border-b-2 border-blue-500 bg-blue-50 text-blue-600"
                   : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
@@ -84,7 +92,7 @@ export default function LoginPage() {
             </button>
             <button
               onClick={() => handleTabChange("signup")}
-              className={`flex-1 px-6 py-4 text-center font-medium transition-colors ${
+              className={`flex-1 px-6 py-4 text-center text-base font-medium transition-colors ${
                 activeTab === "signup"
                   ? "border-b-2 border-blue-500 bg-blue-50 text-blue-600"
                   : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
@@ -98,13 +106,13 @@ export default function LoginPage() {
           <div className="p-8">
             {error && (
               <div className="mb-4 rounded-md bg-red-50 p-4">
-                <p className="text-sm text-red-800">{error}</p>
+                <p className="text-base text-red-800">{error}</p>
               </div>
             )}
 
             {message && (
               <div className="mb-4 rounded-md bg-green-50 p-4">
-                <p className="text-sm text-green-800">{message}</p>
+                <p className="text-base text-green-800">{message}</p>
               </div>
             )}
 
@@ -113,7 +121,7 @@ export default function LoginPage() {
                 <div>
                   <label
                     htmlFor="login-email"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-base font-medium text-gray-700"
                   >
                     メールアドレス
                   </label>
@@ -125,14 +133,14 @@ export default function LoginPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="mt-2 block w-full rounded-md border border-gray-300 px-4 py-3 text-base shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="login-password"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-base font-medium text-gray-700"
                   >
                     パスワード
                   </label>
@@ -144,14 +152,14 @@ export default function LoginPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="mt-2 block w-full rounded-md border border-gray-300 px-4 py-3 text-base shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full rounded-md bg-blue-600 px-4 py-3 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full rounded-md bg-blue-600 px-4 py-3 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   {loading ? "処理中..." : "ログイン"}
                 </button>
@@ -161,7 +169,7 @@ export default function LoginPage() {
                 <div>
                   <label
                     htmlFor="signup-email"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-base font-medium text-gray-700"
                   >
                     メールアドレス
                   </label>
@@ -173,14 +181,14 @@ export default function LoginPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="mt-2 block w-full rounded-md border border-gray-300 px-4 py-3 text-base shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="signup-password"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-base font-medium text-gray-700"
                   >
                     パスワード
                   </label>
@@ -192,9 +200,9 @@ export default function LoginPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="mt-2 block w-full rounded-md border border-gray-300 px-4 py-3 text-base shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
-                  <p className="mt-1 text-xs text-gray-500">
+                  <p className="mt-2 text-sm text-gray-500">
                     6文字以上で設定してください
                   </p>
                 </div>
@@ -202,7 +210,7 @@ export default function LoginPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full rounded-md bg-blue-600 px-4 py-3 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full rounded-md bg-blue-600 px-4 py-3 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   {loading ? "処理中..." : "新規登録"}
                 </button>
@@ -211,8 +219,8 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <p className="mt-4 text-center text-xs text-gray-600">
-          Tamerun - 家計簿アプリ
+        <p className="mt-6 text-center text-sm text-gray-600">
+          © 2026 ためるん - 家計簿アプリ
         </p>
       </div>
     </div>

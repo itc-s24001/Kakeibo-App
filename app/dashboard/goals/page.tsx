@@ -169,7 +169,7 @@ export default function GoalsPage() {
     try {
       const { error } = await supabase
         .from("savings_goals")
-        .update({ is_active: !currentStatus } as any)
+        .update({ is_active: !currentStatus } as unknown)
         .eq("goal_id", goalId);
 
       if (error) throw error;
@@ -320,13 +320,13 @@ export default function GoalsPage() {
       {/* ヘッダー */}
       <nav className="bg-white shadow">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-14 items-center justify-between">
+          <div className="flex h-16 items-center justify-between">
             <div className="flex items-center">
-              <span className="text-lg font-bold text-gray-900">ためるん</span>
+              <span className="text-xl font-bold text-gray-900">ためるん</span>
             </div>
             <button
               onClick={handleLogout}
-              className="text-sm text-gray-600 hover:text-gray-900"
+              className="text-base text-gray-600 hover:text-gray-900"
             >
               ログアウト
             </button>
@@ -764,37 +764,37 @@ export default function GoalsPage() {
           <div className="flex justify-around p-4">
             <button
               onClick={() => router.push("/dashboard")}
-              className="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
             >
-              <span className="text-lg">🏠</span>
+              <span className="text-2xl">🏠</span>
               <span>ホーム</span>
             </button>
             <button
               onClick={() => router.push("/history")}
-              className="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
             >
-              <span className="text-lg">📋</span>
+              <span className="text-2xl">📋</span>
               <span>履歴</span>
             </button>
             <button
               onClick={() => router.push("/dashboard/input")}
-              className="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
             >
-              <span className="text-lg">➕</span>
+              <span className="text-2xl">➕</span>
               <span>入力</span>
             </button>
             <button
               onClick={() => router.push("/dashboard/stats")}
-              className="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
             >
-              <span className="text-lg">📊</span>
+              <span className="text-2xl">📊</span>
               <span>グラフ</span>
             </button>
             <button
               onClick={() => router.push("/dashboard/goals")}
-              className="flex flex-col items-center text-sm text-blue-600"
+              className="flex flex-col items-center text-base text-blue-600"
             >
-              <span className="text-lg">🎯</span>
+              <span className="text-2xl">🎯</span>
               <span className="font-medium">目標</span>
             </button>
           </div>

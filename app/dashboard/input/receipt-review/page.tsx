@@ -32,6 +32,11 @@ export default function ReceiptReviewPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.push("/login");
+  };
+
   useEffect(() => {
     if (!authLoading && !user) {
       router.push("/login");
@@ -203,7 +208,25 @@ export default function ReceiptReviewPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
-      <div className="mx-auto max-w-2xl p-4">
+      {/* ヘッダー */}
+      <nav className="bg-white shadow">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-14 items-center justify-between">
+            <div className="flex items-center">
+              <span className="text-lg font-bold text-gray-900">ためるん</span>
+            </div>
+            <button
+              onClick={handleLogout}
+              className="text-sm text-gray-600 hover:text-gray-900"
+            >
+              ログアウト
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* メインコンテンツ */}
+      <main className="mx-auto max-w-3xl px-4 py-6 sm:px-6 lg:px-8">
         <h1 className="mb-6 text-2xl font-bold text-gray-800">
           レシート内容の確認
         </h1>
@@ -304,7 +327,7 @@ export default function ReceiptReviewPage() {
 
         {/* アクションボタン */}
         <div className="fixed bottom-0 left-0 right-0 bg-white p-4 shadow-lg">
-          <div className="mx-auto flex max-w-2xl gap-3">
+          <div className="mx-auto flex max-w-3xl gap-3">
             <button
               onClick={handleCancel}
               disabled={loading}
@@ -323,7 +346,7 @@ export default function ReceiptReviewPage() {
             </button>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

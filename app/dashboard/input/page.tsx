@@ -177,17 +177,17 @@ export default function TransactionInputPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 pb-20">
       {/* ヘッダー */}
       <nav className="bg-white shadow">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-14 items-center justify-between">
+          <div className="flex h-16 items-center justify-between">
             <div className="flex items-center">
-              <span className="text-lg font-bold text-gray-900">ためるん</span>
+              <span className="text-xl font-bold text-gray-900">ためるん</span>
             </div>
             <button
               onClick={handleLogout}
-              className="text-sm text-gray-600 hover:text-gray-900"
+              className="text-base text-gray-600 hover:text-gray-900"
             >
               ログアウト
             </button>
@@ -198,7 +198,7 @@ export default function TransactionInputPage() {
       {/* メインコンテンツ */}
       <main className="mx-auto max-w-3xl px-4 py-6 sm:px-6 lg:px-8">
         <div className="rounded-lg bg-white p-6 shadow">
-          <h2 className="mb-6 text-center text-xl font-bold text-gray-900">
+          <h2 className="mb-6 text-center text-2xl font-bold text-gray-900">
             入力
           </h2>
 
@@ -360,37 +360,37 @@ export default function TransactionInputPage() {
           <div className="flex justify-around p-4">
             <button
               onClick={() => router.push("/dashboard")}
-              className="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
             >
-              <span className="text-lg">🏠</span>
+              <span className="text-2xl">🏠</span>
               <span>ホーム</span>
             </button>
             <button
               onClick={() => router.push("/history")}
-              className="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
             >
-              <span className="text-lg">📋</span>
+              <span className="text-2xl">📋</span>
               <span>履歴</span>
             </button>
             <button
               onClick={() => router.push("/dashboard/input")}
-              className="flex flex-col items-center text-sm text-blue-600"
+              className="flex flex-col items-center text-base text-blue-600"
             >
-              <span className="text-lg">➕</span>
+              <span className="text-2xl">➕</span>
               <span className="font-medium">入力</span>
             </button>
             <button
               onClick={() => router.push("/dashboard/stats")}
-              className="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
             >
-              <span className="text-lg">📊</span>
+              <span className="text-2xl">📊</span>
               <span>グラフ</span>
             </button>
             <button
               onClick={() => router.push("/dashboard/goals")}
-              className="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
             >
-              <span className="text-lg">🎯</span>
+              <span className="text-2xl">🎯</span>
               <span>目標</span>
             </button>
           </div>

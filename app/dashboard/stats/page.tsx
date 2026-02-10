@@ -26,6 +26,11 @@ export default function StatsPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.push("/login");
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -180,96 +185,113 @@ export default function StatsPage() {
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-4 py-3">
-        <h1 className="text-xl font-bold text-gray-900">グラフ</h1>
-      </div>
-      {/* Month Selector */}
-      <div className="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
-        <button
-          onClick={handlePrevMonth}
-          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-          aria-label="前の月"
-        >
-          <svg
-            className="w-5 h-5 text-gray-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </button>
-        <span className="text-lg font-semibold text-gray-900">
-          {format(currentMonth, "yyyy年M月", { locale: ja })}
-        </span>
-        <button
-          onClick={handleNextMonth}
-          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-          aria-label="次の月"
-        >
-          <svg
-            className="w-5 h-5 text-gray-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </button>
-      </div>
-      {/* Tab Navigation */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="flex">
-          <button
-            onClick={() => setActiveTab("expense")}
-            className={`flex-1 py-3 text-center font-medium transition-colors ${
-              activeTab === "expense"
-                ? "text-blue-600 border-b-2 border-blue-600"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
-          >
-            支出
-          </button>
-          <button
-            onClick={() => setActiveTab("income")}
-            className={`flex-1 py-3 text-center font-medium transition-colors ${
-              activeTab === "income"
-                ? "text-blue-600 border-b-2 border-blue-600"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
-          >
-            収入
-          </button>
+      <nav className="bg-white shadow">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
+            <div className="flex items-center">
+              <span className="text-xl font-bold text-gray-900">ためるん</span>
+            </div>
+            <button
+              onClick={handleLogout}
+              className="text-base text-gray-600 hover:text-gray-900"
+            >
+              ログアウト
+            </button>
+          </div>
         </div>
-      </div>
-      {/* Content */}
-      {loading ? (
-        <div className="flex items-center justify-center py-20">
-          <div className="text-gray-500">読み込み中...</div>
+      </nav>
+
+      {/* メインコンテンツ */}
+      <main className="mx-auto max-w-3xl px-4 py-6 sm:px-6 lg:px-8">
+        {/* Month Selector */}
+        <div className="mb-6 rounded-lg bg-white p-4 shadow">
+          <div className="flex items-center justify-between">
+            <button
+              onClick={handlePrevMonth}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              aria-label="前の月"
+            >
+              <svg
+                className="w-5 h-5 text-gray-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+            <span className="text-lg font-semibold text-gray-900">
+              {format(currentMonth, "yyyy年M月", { locale: ja })}
+            </span>
+            <button
+              onClick={handleNextMonth}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              aria-label="次の月"
+            >
+              <svg
+                className="w-5 h-5 text-gray-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
-      ) : (
-        <div className="px-4 py-6">
-          {/* Pie Chart and Category List */}
+
+        {/* Tab Navigation */}
+        <div className="mb-6 rounded-lg bg-white shadow overflow-hidden">
+          <div className="flex">
+            <button
+              onClick={() => setActiveTab("expense")}
+              className={`flex-1 py-3 text-center font-medium transition-colors ${
+                activeTab === "expense"
+                  ? "text-blue-600 border-b-2 border-blue-600"
+                  : "text-gray-500 hover:text-gray-700"
+              }`}
+            >
+              支出
+            </button>
+            <button
+              onClick={() => setActiveTab("income")}
+              className={`flex-1 py-3 text-center font-medium transition-colors ${
+                activeTab === "income"
+                  ? "text-blue-600 border-b-2 border-blue-600"
+                  : "text-gray-500 hover:text-gray-700"
+              }`}
+            >
+              収入
+            </button>
+          </div>
+        </div>
+
+        {/* Content */}
+        {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <div className="text-gray-500">読み込み中...</div>
+          </div>
+        ) : (
           <>
             {currentTotals.length > 0 ? (
               <>
                 {/* Summary Header */}
-                <div className="bg-white rounded-lg p-4 shadow-sm mb-4">
+                <div className="bg-white rounded-lg p-6 shadow mb-6">
                   <div className="text-center">
-                    <p className="text-sm text-gray-600 mb-1">
+                    <p className="text-base text-gray-600 mb-2">
                       {activeTab === "expense" ? "今月の支出" : "今月の収入"}
                     </p>
-                    <p className="text-2xl font-bold text-gray-900">
+                    <p className="text-4xl font-bold text-gray-900">
                       ¥
                       {currentTotals
                         .reduce((sum, cat) => sum + cat.amount, 0)
@@ -279,7 +301,7 @@ export default function StatsPage() {
                 </div>
 
                 {/* Pie Chart */}
-                <div className="bg-white rounded-lg p-6 shadow-sm mb-6">
+                <div className="bg-white rounded-lg p-6 shadow mb-6">
                   <svg
                     viewBox="0 0 200 200"
                     className="w-full max-w-sm mx-auto"
@@ -297,9 +319,9 @@ export default function StatsPage() {
                 </div>
 
                 {/* Category List */}
-                <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-                  <div className="px-4 py-3 bg-gray-50 border-b border-gray-200">
-                    <h2 className="text-sm font-semibold text-gray-700">
+                <div className="bg-white rounded-lg shadow overflow-hidden">
+                  <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
+                    <h2 className="text-base font-semibold text-gray-700">
                       カテゴリー別
                     </h2>
                   </div>
@@ -312,19 +334,19 @@ export default function StatsPage() {
                       const percentage =
                         total > 0 ? (category.amount / total) * 100 : 0;
                       return (
-                        <div key={index} className="px-4 py-3">
+                        <div key={index} className="px-6 py-4">
                           <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-3 flex-1">
                               <span className="text-2xl">{category.icon}</span>
-                              <span className="font-medium text-gray-900">
+                              <span className="text-base font-medium text-gray-900">
                                 {category.name}
                               </span>
                             </div>
                             <div className="flex items-center gap-4">
-                              <span className="text-sm font-medium text-gray-600 min-w-[3rem] text-right">
+                              <span className="text-base font-medium text-gray-600 min-w-[3rem] text-right">
                                 {percentage.toFixed(1)}%
                               </span>
-                              <span className="text-sm font-semibold text-gray-900 min-w-[6rem] text-right">
+                              <span className="text-base font-semibold text-gray-900 min-w-[6rem] text-right">
                                 ¥{category.amount.toLocaleString()}
                               </span>
                             </div>
@@ -346,50 +368,51 @@ export default function StatsPage() {
                 </div>
               </>
             ) : (
-              <div className="bg-white rounded-lg p-8 shadow-sm text-center">
+              <div className="bg-white rounded-lg p-8 shadow text-center">
                 <p className="text-gray-500">この月のデータがありません</p>
               </div>
             )}
           </>
-        </div>
-      )}{" "}
+        )}
+      </main>
+
       {/* フッターナビゲーション */}
       <nav className="fixed bottom-0 left-0 right-0 bg-white shadow-lg">
         <div className="mx-auto max-w-3xl">
           <div className="flex justify-around p-4">
             <button
               onClick={() => router.push("/dashboard")}
-              className="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
             >
-              <span className="text-lg">🏠</span>
+              <span className="text-2xl">🏠</span>
               <span>ホーム</span>
             </button>
             <button
               onClick={() => router.push("/history")}
-              className="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
             >
-              <span className="text-lg">📋</span>
+              <span className="text-2xl">📋</span>
               <span>履歴</span>
             </button>
             <button
               onClick={() => router.push("/dashboard/input")}
-              className="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
             >
-              <span className="text-lg">➕</span>
+              <span className="text-2xl">➕</span>
               <span>入力</span>
             </button>
             <button
               onClick={() => router.push("/dashboard/stats")}
-              className="flex flex-col items-center text-sm text-blue-600"
+              className="flex flex-col items-center text-base text-blue-600"
             >
-              <span className="text-lg">📊</span>
+              <span className="text-2xl">📊</span>
               <span className="font-medium">グラフ</span>
             </button>
             <button
               onClick={() => router.push("/dashboard/goals")}
-              className="flex flex-col items-center text-sm text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
             >
-              <span className="text-lg">🎯</span>
+              <span className="text-2xl">🎯</span>
               <span>目標</span>
             </button>
           </div>
