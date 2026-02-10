@@ -181,9 +181,9 @@ export default function HistoryPage() {
     }
 
     try {
-      // @ts-expect-error - Supabase型定義の問題を回避
       const { error } = await supabase
         .from("transactions")
+        // @ts-expect-error - Supabase type generation issue
         .update({
           amount: Number(editAmount),
           category_id: editCategoryId,

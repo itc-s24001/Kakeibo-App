@@ -140,6 +140,7 @@ export default function GoalsPage() {
     try {
       const { error: insertError } = await supabase
         .from("savings_goals")
+        // @ts-expect-error - Supabase type generation issue
         .insert([
           {
             user_id: user.id,
@@ -148,7 +149,7 @@ export default function GoalsPage() {
             current_amount: 0,
             deadline: newGoal.deadline || null,
             is_active: true,
-          } as unknown as Database["public"]["Tables"]["savings_goals"]["Insert"],
+          },
         ]);
 
       if (insertError) throw insertError;
@@ -169,7 +170,8 @@ export default function GoalsPage() {
     try {
       const { error } = await supabase
         .from("savings_goals")
-        .update({ is_active: !currentStatus } as unknown)
+        // @ts-expect-error - Supabase type generation issue
+        .update({ is_active: !currentStatus })
         .eq("goal_id", goalId);
 
       if (error) throw error;
@@ -219,12 +221,13 @@ export default function GoalsPage() {
     try {
       const { error: updateError } = await supabase
         .from("savings_goals")
+        // @ts-expect-error - Supabase type generation issue
         .update({
           goal_name: editGoal.goal_name,
           target_amount: targetAmount,
           current_amount: currentAmount,
           deadline: editGoal.deadline || null,
-        } as any)
+        })
         .eq("goal_id", goalId);
 
       if (updateError) throw updateError;
@@ -279,9 +282,10 @@ export default function GoalsPage() {
     try {
       const { error: updateError } = await supabase
         .from("savings_goals")
+        // @ts-expect-error - Supabase type generation issue
         .update({
           current_amount: newCurrentAmount,
-        } as any)
+        })
         .eq("goal_id", goal.goal_id);
 
       if (updateError) throw updateError;

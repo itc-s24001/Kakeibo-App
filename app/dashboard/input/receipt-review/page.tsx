@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
@@ -21,7 +21,7 @@ interface ReceiptData {
   items: ReceiptItem[];
 }
 
-export default function ReceiptReviewPage() {
+function ReceiptReviewContent() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -348,5 +348,13 @@ export default function ReceiptReviewPage() {
         </div>
       </main>
     </div>
+  );
+}
+
+export default function ReceiptReviewPage() {
+  return (
+    <Suspense fallback={<div className="flex min-h-screen items-center justify-center"><div className="text-xl">読み込み中...</div></div>}>
+      <ReceiptReviewContent />
+    </Suspense>
   );
 }

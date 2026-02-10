@@ -1,3 +1,4 @@
+// Supabase Database Types
 export type Json =
   | string
   | number
@@ -38,6 +39,22 @@ export interface Database {
           type: string;
           display_order: number;
         };
+        Insert: {
+          category_id?: number;
+          name: string;
+          icon: string;
+          color: string;
+          type: string;
+          display_order?: number;
+        };
+        Update: {
+          category_id?: number;
+          name?: string;
+          icon?: string;
+          color?: string;
+          type?: string;
+          display_order?: number;
+        };
       };
       transactions: {
         Row: {
@@ -59,6 +76,18 @@ export interface Database {
           amount: number;
           category_id: number;
           date: string;
+          memo?: string | null;
+          receipt_image_url?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          transaction_id?: number;
+          user_id?: string;
+          type?: string;
+          amount?: number;
+          category_id?: number;
+          date?: string;
           memo?: string | null;
           receipt_image_url?: string | null;
           created_at?: string;
@@ -88,6 +117,17 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Update: {
+          goal_id?: number;
+          user_id?: string;
+          goal_name?: string;
+          target_amount?: number;
+          current_amount?: number;
+          deadline?: string | null;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
       };
       monthly_budgets: {
         Row: {
@@ -97,6 +137,22 @@ export interface Database {
           total_budget: number;
           created_at: string;
           updated_at: string;
+        };
+        Insert: {
+          budget_id?: number;
+          user_id: string;
+          year_month: string;
+          total_budget: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          budget_id?: number;
+          user_id?: string;
+          year_month?: string;
+          total_budget?: number;
+          created_at?: string;
+          updated_at?: string;
         };
       };
     };
