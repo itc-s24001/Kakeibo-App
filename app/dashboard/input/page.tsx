@@ -6,6 +6,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
+import { Camera } from "lucide-react";
 import type { Database } from "@/types/database";
 
 type TransactionType = "income" | "expense";
@@ -25,6 +26,7 @@ export default function TransactionInputPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [isProcessingReceipt, setIsProcessingReceipt] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -55,6 +57,56 @@ export default function TransactionInputPage() {
 
     fetchCategories();
   }, [transactionType]);
+
+  const handleReceiptUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsProcessingReceipt(true);
+    setError(null);
+
+    try {
+      console.log("📤 レシート画像を送信中:", file.name);
+
+      // レシート画像をAPIに送信
+      const formData = new FormData();
+      formData.append("image", file);
+
+      const response = await fetch("/api/analyze-receipt", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+      console.log("📥 API応答:", result);
+
+      if (!result.success || !result.data) {
+        const errorMsg = result.details
+          ? `${result.error}: ${result.details}`
+          : result.error || "レシートの解析に失敗しました";
+        throw new Error(errorMsg);
+      }
+
+      const receiptData = result.data;
+
+      console.log("✅ レシート読み取り成功！");
+
+      // レシート確認ページに遷移
+      const dataParam = encodeURIComponent(JSON.stringify(receiptData));
+      router.push(`/dashboard/input/receipt-review?data=${dataParam}`);
+    } catch (err) {
+      console.error("❌ レシート処理エラー:", err);
+      setError(
+        err instanceof Error ? err.message : "レシートの読み取りに失敗しました",
+      );
+    } finally {
+      setIsProcessingReceipt(false);
+      // input をリセット
+      e.target.value = "";
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -190,6 +242,33 @@ export default function TransactionInputPage() {
                 支出
               </button>
             </div>
+
+            {/* レシート読み取りボタン（支出の場合のみ表示） */}
+            {transactionType === "expense" && (
+              <div>
+                <label
+                  htmlFor="receipt-upload"
+                  className="flex cursor-pointer items-center justify-center gap-2 rounded-lg border-2 border-dashed border-blue-300 bg-blue-50 px-4 py-3 text-blue-600 transition-colors hover:border-blue-400 hover:bg-blue-100"
+                >
+                  <Camera className="h-5 w-5" />
+                  <span className="font-medium">
+                    {isProcessingReceipt ? "処理中..." : "レシートを読み取る"}
+                  </span>
+                </label>
+                <input
+                  id="receipt-upload"
+                  type="file"
+                  accept="image/*"
+                  capture="environment"
+                  onChange={handleReceiptUpload}
+                  disabled={isProcessingReceipt}
+                  className="hidden"
+                />
+                <p className="mt-1 text-xs text-gray-500">
+                  レシートの写真を撮影して自動入力（開発中）
+                </p>
+              </div>
+            )}
 
             {/* 日付 */}
             <div>
