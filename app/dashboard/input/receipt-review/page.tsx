@@ -353,7 +353,13 @@ function ReceiptReviewContent() {
 
 export default function ReceiptReviewPage() {
   return (
-    <Suspense fallback={<div className="flex min-h-screen items-center justify-center"><div className="text-xl">読み込み中...</div></div>}>
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center">
+          <div className="text-xl">読み込み中...</div>
+        </div>
+      }
+    >
       <ReceiptReviewContent />
     </Suspense>
   );

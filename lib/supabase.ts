@@ -19,20 +19,16 @@ export const supabase = createSupabaseClient<Database>(
   supabaseAnonKey,
   {
     db: {
-      schema: 'public'
-    }
-  }
+      schema: "public",
+    },
+  },
 );
 
 // サーバーコンポーネント用（認証コールバック等で使用）
 export function createClient() {
-  return createSupabaseClient<Database>(
-    supabaseUrl, 
-    supabaseAnonKey,
-    {
-      db: {
-        schema: 'public'
-      }
-    }
-  );
+  return createSupabaseClient<Database>(supabaseUrl, supabaseAnonKey, {
+    db: {
+      schema: "public",
+    },
+  });
 }

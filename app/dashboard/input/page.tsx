@@ -265,7 +265,7 @@ export default function TransactionInputPage() {
                   className="hidden"
                 />
                 <p className="mt-1 text-xs text-gray-500">
-                  レシートの写真を撮影して自動入力（開発中）
+                  レシートの写真を撮影して自動入力
                 </p>
               </div>
             )}
