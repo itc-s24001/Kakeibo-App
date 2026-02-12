@@ -194,7 +194,7 @@ function ReceiptReviewContent() {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <p className="mb-4 text-gray-600">レシートデータが見つかりません</p>
+          <p className="mb-4 text-gray-900">レシートデータが見つかりません</p>
           <button
             onClick={() => router.push("/dashboard/input")}
             className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
@@ -217,7 +217,7 @@ function ReceiptReviewContent() {
             </div>
             <button
               onClick={handleLogout}
-              className="text-sm text-gray-600 hover:text-gray-900"
+              className="text-sm text-gray-900 hover:text-gray-900"
             >
               ログアウト
             </button>
@@ -242,15 +242,15 @@ function ReceiptReviewContent() {
           <h2 className="mb-3 text-lg font-bold text-gray-800">基本情報</h2>
           <div className="space-y-2 text-sm">
             <p>
-              <span className="font-medium text-gray-600">店名:</span>{" "}
+              <span className="font-medium text-gray-900">店名:</span>{" "}
               <span className="text-gray-800">{receiptData.storeName}</span>
             </p>
             <p>
-              <span className="font-medium text-gray-600">日付:</span>{" "}
+              <span className="font-medium text-gray-900">日付:</span>{" "}
               <span className="text-gray-800">{receiptData.date}</span>
             </p>
             <p>
-              <span className="font-medium text-gray-600">合計金額:</span>{" "}
+              <span className="font-medium text-gray-900">合計金額:</span>{" "}
               <span className="text-lg font-bold text-gray-800">
                 ¥{receiptData.totalAmount.toLocaleString()}
               </span>
@@ -276,7 +276,7 @@ function ReceiptReviewContent() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-600">
+                  <label className="block text-xs font-medium text-gray-900">
                     カテゴリー
                   </label>
                   <select

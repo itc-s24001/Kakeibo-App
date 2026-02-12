@@ -187,7 +187,7 @@ export default function TransactionInputPage() {
             </div>
             <button
               onClick={handleLogout}
-              className="text-base text-gray-600 hover:text-gray-900"
+              className="text-base text-gray-900 hover:text-blue-600"
             >
               ログアウト
             </button>
@@ -264,7 +264,7 @@ export default function TransactionInputPage() {
                   disabled={isProcessingReceipt}
                   className="hidden"
                 />
-                <p className="mt-1 text-xs text-gray-500">
+                <p className="mt-1 text-xs text-gray-700">
                   レシートの写真を撮影して自動入力
                 </p>
               </div>
@@ -272,7 +272,7 @@ export default function TransactionInputPage() {
 
             {/* 日付 */}
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-gray-900">
                 日付
               </label>
               <input
@@ -281,14 +281,14 @@ export default function TransactionInputPage() {
                 onChange={(e) => setDate(e.target.value)}
                 className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               />
-              <p className="mt-1 text-sm text-gray-500">
+              <p className="mt-1 text-sm text-gray-700">
                 {format(new Date(date), "yyyy年M月d日(E)", { locale: ja })}
               </p>
             </div>
 
             {/* 金額 */}
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-gray-900">
                 金額
               </label>
               <input
@@ -305,7 +305,7 @@ export default function TransactionInputPage() {
 
             {/* カテゴリー選択 */}
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-gray-900">
                 カテゴリー選択
               </label>
               <select
@@ -330,7 +330,7 @@ export default function TransactionInputPage() {
 
             {/* メモ */}
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-gray-900">
                 メモ(任意)
               </label>
               <textarea
@@ -360,14 +360,14 @@ export default function TransactionInputPage() {
           <div className="flex justify-around p-4">
             <button
               onClick={() => router.push("/dashboard")}
-              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-900 hover:text-blue-600"
             >
               <span className="text-2xl">🏠</span>
               <span>ホーム</span>
             </button>
             <button
               onClick={() => router.push("/history")}
-              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-900 hover:text-blue-600"
             >
               <span className="text-2xl">📋</span>
               <span>履歴</span>
@@ -381,14 +381,14 @@ export default function TransactionInputPage() {
             </button>
             <button
               onClick={() => router.push("/dashboard/stats")}
-              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-900 hover:text-blue-600"
             >
               <span className="text-2xl">📊</span>
               <span>グラフ</span>
             </button>
             <button
               onClick={() => router.push("/dashboard/goals")}
-              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-900 hover:text-blue-600"
             >
               <span className="text-2xl">🎯</span>
               <span>目標</span>

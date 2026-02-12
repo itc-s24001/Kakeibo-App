@@ -330,7 +330,7 @@ export default function GoalsPage() {
             </div>
             <button
               onClick={handleLogout}
-              className="text-base text-gray-600 hover:text-gray-900"
+              className="text-base text-gray-900 hover:text-gray-900"
             >
               ログアウト
             </button>
@@ -376,7 +376,7 @@ export default function GoalsPage() {
             </h3>
             <form onSubmit={handleCreateGoal} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-900">
                   目標名
                 </label>
                 <input
@@ -392,7 +392,7 @@ export default function GoalsPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-900">
                   目標金額
                 </label>
                 <input
@@ -410,7 +410,7 @@ export default function GoalsPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-900">
                   期限（任意）
                 </label>
                 <input
@@ -433,7 +433,7 @@ export default function GoalsPage() {
                 <button
                   type="button"
                   onClick={() => setShowNewGoalForm(false)}
-                  className="flex-1 rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300"
+                  className="flex-1 rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-300"
                 >
                   キャンセル
                 </button>
@@ -449,7 +449,7 @@ export default function GoalsPage() {
             <h3 className="mb-2 text-lg font-medium text-gray-900">
               目標がありません
             </h3>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-700">
               「新しい目標」ボタンから目標を作成しましょう
             </p>
           </div>
@@ -470,7 +470,7 @@ export default function GoalsPage() {
                     </h3>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-sm font-medium text-gray-900">
                         目標名
                       </label>
                       <input
@@ -489,7 +489,7 @@ export default function GoalsPage() {
 
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700">
+                        <label className="block text-sm font-medium text-gray-900">
                           目標金額
                         </label>
                         <input
@@ -509,7 +509,7 @@ export default function GoalsPage() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-700">
+                        <label className="block text-sm font-medium text-gray-900">
                           現在額
                         </label>
                         <input
@@ -530,7 +530,7 @@ export default function GoalsPage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-sm font-medium text-gray-900">
                         期限（任意）
                       </label>
                       <input
@@ -552,7 +552,7 @@ export default function GoalsPage() {
                       </button>
                       <button
                         onClick={cancelEdit}
-                        className="flex-1 rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300"
+                        className="flex-1 rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-300"
                       >
                         キャンセル
                       </button>
@@ -568,7 +568,7 @@ export default function GoalsPage() {
                           {goal.goal_name}
                         </h3>
                         {goal.deadline && (
-                          <p className="mt-1 flex items-center text-sm text-gray-500">
+                          <p className="mt-1 flex items-center text-sm text-gray-700">
                             <Calendar className="mr-1 h-4 w-4" />
                             期限:{" "}
                             {format(new Date(goal.deadline), "yyyy年M月d日", {
@@ -591,7 +591,7 @@ export default function GoalsPage() {
                           className={`rounded-full px-4 py-1 text-xs font-medium ${
                             goal.is_active
                               ? "bg-green-100 text-green-800"
-                              : "bg-gray-200 text-gray-600"
+                              : "bg-gray-200 text-gray-900"
                           }`}
                         >
                           {goal.is_active ? "ON" : "OFF"}
@@ -653,7 +653,7 @@ export default function GoalsPage() {
                               setAddSavingsGoalId(null);
                               setAddSavingsAmount("");
                             }}
-                            className="rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300"
+                            className="rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-300"
                           >
                             キャンセル
                           </button>
@@ -676,7 +676,7 @@ export default function GoalsPage() {
                           </button>
                           <button
                             onClick={() => setDeleteConfirm(null)}
-                            className="flex-1 rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300"
+                            className="flex-1 rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-300"
                           >
                             キャンセル
                           </button>
@@ -687,13 +687,13 @@ export default function GoalsPage() {
                     {/* 目標金額と現在額 */}
                     <div className="mb-4 flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-gray-500">目標金額</p>
+                        <p className="text-sm text-gray-700">目標金額</p>
                         <p className="text-2xl font-bold text-gray-900">
                           ¥{Number(goal.target_amount).toLocaleString()}
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm text-gray-500">現在額</p>
+                        <p className="text-sm text-gray-700">現在額</p>
                         <p className="text-2xl font-bold text-blue-600">
                           ¥{Number(goal.current_amount).toLocaleString()}
                         </p>
@@ -703,7 +703,7 @@ export default function GoalsPage() {
                     {/* 達成率バー */}
                     <div className="mb-4">
                       <div className="mb-2 flex items-center justify-between">
-                        <span className="text-sm font-medium text-gray-700">
+                        <span className="text-sm font-medium text-gray-900">
                           達成率
                         </span>
                         <span className="text-sm font-medium text-blue-600">
@@ -727,7 +727,7 @@ export default function GoalsPage() {
                           <div className="flex items-center justify-between">
                             <div className="flex items-center">
                               <TrendingUp className="mr-2 h-5 w-5 text-blue-600" />
-                              <span className="text-sm font-medium text-gray-700">
+                              <span className="text-sm font-medium text-gray-900">
                                 月間必要貯金額
                               </span>
                             </div>
@@ -738,7 +738,7 @@ export default function GoalsPage() {
                                   goal.monthly_required_amount,
                                 ).toLocaleString()}
                               </p>
-                              <p className="text-xs text-gray-500">
+                              <p className="text-xs text-gray-700">
                                 残り{goal.months_remaining}ヶ月
                               </p>
                             </div>
@@ -768,28 +768,28 @@ export default function GoalsPage() {
           <div className="flex justify-around p-4">
             <button
               onClick={() => router.push("/dashboard")}
-              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-900 hover:text-blue-600"
             >
               <span className="text-2xl">🏠</span>
               <span>ホーム</span>
             </button>
             <button
               onClick={() => router.push("/history")}
-              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-900 hover:text-blue-600"
             >
               <span className="text-2xl">📋</span>
               <span>履歴</span>
             </button>
             <button
               onClick={() => router.push("/dashboard/input")}
-              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-900 hover:text-blue-600"
             >
               <span className="text-2xl">➕</span>
               <span>入力</span>
             </button>
             <button
               onClick={() => router.push("/dashboard/stats")}
-              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-900 hover:text-blue-600"
             >
               <span className="text-2xl">📊</span>
               <span>グラフ</span>

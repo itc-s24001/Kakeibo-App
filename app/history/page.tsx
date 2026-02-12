@@ -261,7 +261,7 @@ export default function HistoryPage() {
             </div>
             <button
               onClick={handleLogout}
-              className="text-base text-gray-600 hover:text-gray-900"
+              className="text-base text-gray-900 hover:text-gray-900"
             >
               ログアウト
             </button>
@@ -302,7 +302,7 @@ export default function HistoryPage() {
                     ? "text-red-500"
                     : index === 6
                       ? "text-blue-500"
-                      : "text-gray-600"
+                      : "text-gray-900"
                 }`}
               >
                 {day}
@@ -383,7 +383,7 @@ export default function HistoryPage() {
           </h2>
 
           {filteredTransactions.length === 0 ? (
-            <p className="py-8 text-center text-sm text-gray-500">
+            <p className="py-8 text-center text-sm text-gray-700">
               {selectedDate
                 ? "この日の履歴はありません"
                 : "まだ履歴がありません"}
@@ -418,7 +418,7 @@ export default function HistoryPage() {
                         <div className="flex items-center gap-3 text-sm">
                           {total.income > 0 && (
                             <div className="flex items-center gap-1">
-                              <span className="text-xs text-gray-500">
+                              <span className="text-xs text-gray-700">
                                 収入
                               </span>
                               <span className="text-lg font-semibold text-blue-600">
@@ -428,7 +428,7 @@ export default function HistoryPage() {
                           )}
                           {total.expense > 0 && (
                             <div className="flex items-center gap-1">
-                              <span className="text-xs text-gray-500">
+                              <span className="text-xs text-gray-700">
                                 支出
                               </span>
                               <span className="text-lg font-semibold text-red-600">
@@ -590,7 +590,7 @@ export default function HistoryPage() {
           <div className="flex justify-around p-4">
             <button
               onClick={() => router.push("/dashboard")}
-              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-900 hover:text-blue-600"
             >
               <span className="text-2xl">🏠</span>
               <span>ホーム</span>
@@ -604,21 +604,21 @@ export default function HistoryPage() {
             </button>
             <button
               onClick={() => router.push("/dashboard/input")}
-              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-900 hover:text-blue-600"
             >
               <span className="text-2xl">➕</span>
               <span>入力</span>
             </button>
             <button
               onClick={() => router.push("/dashboard/stats")}
-              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-900 hover:text-blue-600"
             >
               <span className="text-2xl">📊</span>
               <span>グラフ</span>
             </button>
             <button
               onClick={() => router.push("/dashboard/goals")}
-              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-900 hover:text-blue-600"
             >
               <span className="text-2xl">🎯</span>
               <span>目標</span>

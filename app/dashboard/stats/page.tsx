@@ -193,7 +193,7 @@ export default function StatsPage() {
             </div>
             <button
               onClick={handleLogout}
-              className="text-base text-gray-600 hover:text-gray-900"
+              className="text-base text-gray-900 hover:text-blue-600"
             >
               ログアウト
             </button>
@@ -212,7 +212,7 @@ export default function StatsPage() {
               aria-label="前の月"
             >
               <svg
-                className="w-5 h-5 text-gray-600"
+                className="w-5 h-5 text-gray-900"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -234,7 +234,7 @@ export default function StatsPage() {
               aria-label="次の月"
             >
               <svg
-                className="w-5 h-5 text-gray-600"
+                className="w-5 h-5 text-gray-900"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -258,7 +258,7 @@ export default function StatsPage() {
               className={`flex-1 py-3 text-center font-medium transition-colors ${
                 activeTab === "expense"
                   ? "text-blue-600 border-b-2 border-blue-600"
-                  : "text-gray-500 hover:text-gray-700"
+                  : "text-gray-700 hover:text-gray-700"
               }`}
             >
               支出
@@ -268,7 +268,7 @@ export default function StatsPage() {
               className={`flex-1 py-3 text-center font-medium transition-colors ${
                 activeTab === "income"
                   ? "text-blue-600 border-b-2 border-blue-600"
-                  : "text-gray-500 hover:text-gray-700"
+                  : "text-gray-700 hover:text-gray-700"
               }`}
             >
               収入
@@ -279,7 +279,7 @@ export default function StatsPage() {
         {/* Content */}
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="text-gray-500">読み込み中...</div>
+            <div className="text-gray-700">読み込み中...</div>
           </div>
         ) : (
           <>
@@ -288,7 +288,7 @@ export default function StatsPage() {
                 {/* Summary Header */}
                 <div className="bg-white rounded-lg p-6 shadow mb-6">
                   <div className="text-center">
-                    <p className="text-base text-gray-600 mb-2">
+                    <p className="text-base text-gray-900 mb-2">
                       {activeTab === "expense" ? "今月の支出" : "今月の収入"}
                     </p>
                     <p className="text-4xl font-bold text-gray-900">
@@ -321,7 +321,7 @@ export default function StatsPage() {
                 {/* Category List */}
                 <div className="bg-white rounded-lg shadow overflow-hidden">
                   <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
-                    <h2 className="text-base font-semibold text-gray-700">
+                    <h2 className="text-base font-semibold text-gray-900">
                       カテゴリー別
                     </h2>
                   </div>
@@ -343,7 +343,7 @@ export default function StatsPage() {
                               </span>
                             </div>
                             <div className="flex items-center gap-4">
-                              <span className="text-base font-medium text-gray-600 min-w-[3rem] text-right">
+                              <span className="text-base font-medium text-gray-900 min-w-[3rem] text-right">
                                 {percentage.toFixed(1)}%
                               </span>
                               <span className="text-base font-semibold text-gray-900 min-w-[6rem] text-right">
@@ -369,7 +369,7 @@ export default function StatsPage() {
               </>
             ) : (
               <div className="bg-white rounded-lg p-8 shadow text-center">
-                <p className="text-gray-500">この月のデータがありません</p>
+                <p className="text-gray-700">この月のデータがありません</p>
               </div>
             )}
           </>
@@ -382,21 +382,21 @@ export default function StatsPage() {
           <div className="flex justify-around p-4">
             <button
               onClick={() => router.push("/dashboard")}
-              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-900 hover:text-blue-600"
             >
               <span className="text-2xl">🏠</span>
               <span>ホーム</span>
             </button>
             <button
               onClick={() => router.push("/history")}
-              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-900 hover:text-blue-600"
             >
               <span className="text-2xl">📋</span>
               <span>履歴</span>
             </button>
             <button
               onClick={() => router.push("/dashboard/input")}
-              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-900 hover:text-blue-600"
             >
               <span className="text-2xl">➕</span>
               <span>入力</span>
@@ -410,7 +410,7 @@ export default function StatsPage() {
             </button>
             <button
               onClick={() => router.push("/dashboard/goals")}
-              className="flex flex-col items-center text-base text-gray-600 hover:text-blue-600"
+              className="flex flex-col items-center text-base text-gray-900 hover:text-blue-600"
             >
               <span className="text-2xl">🎯</span>
               <span>目標</span>
