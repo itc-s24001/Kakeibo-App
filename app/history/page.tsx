@@ -311,7 +311,7 @@ export default function HistoryPage() {
           </div>
 
           {/* カレンダーグリッド */}
-          <div className="grid grid-cols-7 gap-2">
+          <div className="grid grid-cols-7 gap-1">
             {calendarDays.map((day, index) => {
               if (!day) {
                 return <div key={`blank-${index}`} className="aspect-square" />;
@@ -321,39 +321,52 @@ export default function HistoryPage() {
               const total = dailyTotals.get(dateStr);
               const isSelected = selectedDate && isSameDay(day, selectedDate);
               const isToday = isSameDay(day, new Date());
+              const dayOfWeek = day.getDay();
+              const isSunday = dayOfWeek === 0;
+              const isSaturday = dayOfWeek === 6;
 
               return (
                 <button
                   key={dateStr}
                   onClick={() => handleDateClick(day)}
-                  className={`aspect-square rounded-xl border-2 p-2 text-xs transition-all ${
+                  className={`relative aspect-square rounded-lg border p-0.5 text-xs transition-all overflow-hidden ${
                     isSelected
                       ? "border-blue-500 bg-blue-50 shadow-md"
                       : isToday
                         ? "border-blue-400 bg-blue-50"
-                        : "border-gray-200 hover:border-gray-300 hover:bg-gray-50 hover:shadow-sm"
+                        : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
                   }`}
                 >
                   <div className="flex h-full flex-col items-center justify-start">
                     <span
-                      className={`mb-1.5 text-xl font-bold ${
+                      className={`text-sm font-bold leading-tight ${
                         isSelected || isToday
                           ? "text-blue-600"
-                          : "text-gray-900"
+                          : isSunday
+                            ? "text-red-500"
+                            : isSaturday
+                              ? "text-blue-500"
+                              : "text-gray-900"
                       }`}
                     >
                       {format(day, "d")}
                     </span>
                     {total && (
-                      <div className="w-full space-y-1">
+                      <div className="w-full space-y-0">
                         {total.income > 0 && (
-                          <div className="text-sm font-bold leading-tight text-blue-600">
-                            +{total.income.toLocaleString()}
+                          <div className="text-[9px] font-semibold leading-tight text-blue-600 truncate px-0.5">
+                            +
+                            {total.income >= 10000
+                              ? `${Math.floor(total.income / 10000)}万`
+                              : total.income.toLocaleString()}
                           </div>
                         )}
                         {total.expense > 0 && (
-                          <div className="text-sm font-bold leading-tight text-red-600">
-                            -{total.expense.toLocaleString()}
+                          <div className="text-[9px] font-semibold leading-tight text-red-600 truncate px-0.5">
+                            -
+                            {total.expense >= 10000
+                              ? `${Math.floor(total.expense / 10000)}万`
+                              : total.expense.toLocaleString()}
                           </div>
                         )}
                       </div>
@@ -587,41 +600,41 @@ export default function HistoryPage() {
       {/* フッターナビゲーション */}
       <nav className="fixed bottom-0 left-0 right-0 bg-white shadow-lg">
         <div className="mx-auto max-w-3xl">
-          <div className="flex justify-around p-4">
+          <div className="flex justify-around p-3">
             <button
               onClick={() => router.push("/dashboard")}
-              className="flex flex-col items-center text-base text-gray-900 hover:text-blue-600"
+              className="flex flex-col items-center gap-1 text-xs text-gray-900 hover:text-blue-600"
             >
               <span className="text-2xl">🏠</span>
-              <span>ホーム</span>
+              <span className="text-[11px]">ホーム</span>
             </button>
             <button
               onClick={() => router.push("/history")}
-              className="flex flex-col items-center text-base text-blue-600"
+              className="flex flex-col items-center gap-1 text-xs text-blue-600"
             >
               <span className="text-2xl">📋</span>
-              <span className="font-medium">履歴</span>
+              <span className="text-[11px] font-medium">履歴</span>
             </button>
             <button
               onClick={() => router.push("/dashboard/input")}
-              className="flex flex-col items-center text-base text-gray-900 hover:text-blue-600"
+              className="flex flex-col items-center gap-1 text-xs text-gray-900 hover:text-blue-600"
             >
               <span className="text-2xl">➕</span>
-              <span>入力</span>
+              <span className="text-[11px]">入力</span>
             </button>
             <button
               onClick={() => router.push("/dashboard/stats")}
-              className="flex flex-col items-center text-base text-gray-900 hover:text-blue-600"
+              className="flex flex-col items-center gap-1 text-xs text-gray-900 hover:text-blue-600"
             >
               <span className="text-2xl">📊</span>
-              <span>グラフ</span>
+              <span className="text-[11px]">グラフ</span>
             </button>
             <button
               onClick={() => router.push("/dashboard/goals")}
-              className="flex flex-col items-center text-base text-gray-900 hover:text-blue-600"
+              className="flex flex-col items-center gap-1 text-xs text-gray-900 hover:text-blue-600"
             >
               <span className="text-2xl">🎯</span>
-              <span>目標</span>
+              <span className="text-[11px]">目標</span>
             </button>
           </div>
         </div>

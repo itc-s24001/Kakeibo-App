@@ -6,7 +6,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
-import { TrendingUp, TrendingDown, Target, Plus } from "lucide-react";
+import { TrendingUp, TrendingDown, Target } from "lucide-react";
 import type { Database } from "@/types/database";
 
 type Transaction = Database["public"]["Tables"]["transactions"]["Row"];
@@ -394,14 +394,6 @@ export default function DashboardHome() {
           )}
         </div>
       </main>
-
-      {/* フローティング追加ボタン */}
-      <button
-        onClick={() => router.push("/dashboard/input")}
-        className="fixed bottom-24 right-6 flex h-14 w-14 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-700"
-      >
-        <Plus className="h-6 w-6" />
-      </button>
 
       {/* フッターナビゲーション */}
       <nav className="fixed bottom-0 left-0 right-0 bg-white shadow-lg">
