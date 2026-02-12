@@ -640,7 +640,7 @@ export default function GoalsPage() {
                             min="0"
                             step="100"
                             placeholder="金額を入力"
-                            className="flex-1 rounded-md border border-green-300 px-3 py-2 text-sm focus:border-green-500 focus:outline-none focus:ring-1 focus:ring-green-500"
+                            className="flex-1 rounded-md border border-green-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-500 focus:border-green-500 focus:outline-none focus:ring-1 focus:ring-green-500"
                           />
                           <button
                             onClick={() => handleAddSavings(goal)}
