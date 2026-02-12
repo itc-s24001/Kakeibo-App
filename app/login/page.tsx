@@ -86,7 +86,7 @@ export default function LoginPage() {
         {/* ロゴとメッセージ */}
         <div className="mb-6 text-center">
           <h1 className="mb-3 text-5xl font-bold text-gray-900">ためるん</h1>
-          <p className="text-lg font-medium text-gray-900">
+          <p className="text-lg font-medium text-gray-700">
             {activeTab === "login"
               ? "おかえりなさい！💰"
               : "一緒に貯金を始めましょう！🐻"}
@@ -101,7 +101,7 @@ export default function LoginPage() {
               className={`flex-1 px-6 py-4 text-center text-lg font-semibold transition-all duration-200 ${
                 activeTab === "login"
                   ? "border-b-3 border-blue-600 bg-gradient-to-t from-blue-50 to-white text-blue-600"
-                  : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                  : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
               }`}
             >
               ログイン
@@ -111,7 +111,7 @@ export default function LoginPage() {
               className={`flex-1 px-6 py-4 text-center text-lg font-semibold transition-all duration-200 ${
                 activeTab === "signup"
                   ? "border-b-3 border-blue-600 bg-gradient-to-t from-blue-50 to-white text-blue-600"
-                  : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                  : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
               }`}
             >
               新規登録
@@ -128,7 +128,9 @@ export default function LoginPage() {
 
             {message && (
               <div className="mb-6 rounded-lg bg-green-50 border border-green-200 p-4">
-                <p className="text-base text-green-800 font-medium">{message}</p>
+                <p className="text-base text-green-800 font-medium">
+                  {message}
+                </p>
               </div>
             )}
 
@@ -137,7 +139,7 @@ export default function LoginPage() {
                 <div>
                   <label
                     htmlFor="login-email"
-                    className="block text-sm font-semibold text-gray-900 mb-2"
+                    className="block text-sm font-semibold text-gray-700 mb-2"
                   >
                     メールアドレス
                   </label>
@@ -149,7 +151,7 @@ export default function LoginPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="block w-full rounded-lg border-2 border-gray-300 px-4 py-3 text-base text-gray-900 transition-all focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                    className="block w-full rounded-lg border-2 border-gray-300 px-4 py-3 text-base transition-all focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                     placeholder="example@email.com"
                   />
                 </div>
@@ -157,7 +159,7 @@ export default function LoginPage() {
                 <div>
                   <label
                     htmlFor="login-password"
-                    className="block text-sm font-semibold text-gray-900 mb-2"
+                    className="block text-sm font-semibold text-gray-700 mb-2"
                   >
                     パスワード
                   </label>
@@ -169,7 +171,7 @@ export default function LoginPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="block w-full rounded-lg border-2 border-gray-300 px-4 py-3 text-base text-gray-900 transition-all focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                    className="block w-full rounded-lg border-2 border-gray-300 px-4 py-3 text-base transition-all focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                     placeholder="••••••••"
                   />
                 </div>
@@ -187,7 +189,7 @@ export default function LoginPage() {
                 <div>
                   <label
                     htmlFor="signup-email"
-                    className="block text-sm font-semibold text-gray-900 mb-2"
+                    className="block text-sm font-semibold text-gray-700 mb-2"
                   >
                     メールアドレス
                   </label>
@@ -199,7 +201,7 @@ export default function LoginPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="block w-full rounded-lg border-2 border-gray-300 px-4 py-3 text-base text-gray-900 transition-all focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                    className="block w-full rounded-lg border-2 border-gray-300 px-4 py-3 text-base transition-all focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                     placeholder="example@email.com"
                   />
                 </div>
@@ -207,7 +209,7 @@ export default function LoginPage() {
                 <div>
                   <label
                     htmlFor="signup-password"
-                    className="block text-sm font-semibold text-gray-900 mb-2"
+                    className="block text-sm font-semibold text-gray-700 mb-2"
                   >
                     パスワード
                   </label>
@@ -219,10 +221,10 @@ export default function LoginPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="block w-full rounded-lg border-2 border-gray-300 px-4 py-3 text-base text-gray-900 transition-all focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                    className="block w-full rounded-lg border-2 border-gray-300 px-4 py-3 text-base transition-all focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                     placeholder="••••••••"
                   />
-                  <p className="mt-2 text-sm text-gray-700">
+                  <p className="mt-2 text-sm text-gray-500">
                     💡 6文字以上で設定してください
                   </p>
                 </div>
@@ -239,7 +241,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <p className="mt-6 text-center text-sm text-gray-700">
+        <p className="mt-6 text-center text-sm text-gray-600">
           © 2026 ためるん - 家計簿アプリ
         </p>
       </div>
