@@ -311,7 +311,7 @@ export default function HistoryPage() {
           </div>
 
           {/* カレンダーグリッド */}
-          <div className="grid grid-cols-7 gap-1 sm:gap-2">
+          <div className="grid grid-cols-7 gap-2">
             {calendarDays.map((day, index) => {
               if (!day) {
                 return <div key={`blank-${index}`} className="aspect-square" />;
@@ -326,7 +326,7 @@ export default function HistoryPage() {
                 <button
                   key={dateStr}
                   onClick={() => handleDateClick(day)}
-                  className={`aspect-square rounded-lg sm:rounded-xl border-2 p-1 sm:p-2 text-xs transition-all overflow-hidden ${
+                  className={`aspect-square rounded-xl border-2 p-2 text-xs transition-all ${
                     isSelected
                       ? "border-blue-500 bg-blue-50 shadow-md"
                       : isToday
@@ -336,7 +336,7 @@ export default function HistoryPage() {
                 >
                   <div className="flex h-full flex-col items-center justify-start">
                     <span
-                      className={`mb-0.5 sm:mb-1 text-base sm:text-lg font-bold ${
+                      className={`mb-1.5 text-xl font-bold ${
                         isSelected || isToday
                           ? "text-blue-600"
                           : "text-gray-900"
@@ -345,15 +345,15 @@ export default function HistoryPage() {
                       {format(day, "d")}
                     </span>
                     {total && (
-                      <div className="w-full space-y-0.5 overflow-hidden">
+                      <div className="w-full space-y-1">
                         {total.income > 0 && (
-                          <div className="text-[9px] sm:text-[10px] font-bold leading-tight text-blue-600 truncate">
-                            +{(total.income / 1000).toFixed(0)}k
+                          <div className="text-sm font-bold leading-tight text-blue-600">
+                            +{total.income.toLocaleString()}
                           </div>
                         )}
                         {total.expense > 0 && (
-                          <div className="text-[9px] sm:text-[10px] font-bold leading-tight text-red-600 truncate">
-                            -{(total.expense / 1000).toFixed(0)}k
+                          <div className="text-sm font-bold leading-tight text-red-600">
+                            -{total.expense.toLocaleString()}
                           </div>
                         )}
                       </div>
