@@ -568,7 +568,7 @@ export default function GoalsPage() {
                           {goal.goal_name}
                         </h3>
                         {goal.deadline && (
-                          <p className="mt-1 flex items-center text-sm text-gray-700">
+                          <p className="mt-1 flex items-center text-base text-gray-700">
                             <Calendar className="mr-1 h-4 w-4" />
                             期限:{" "}
                             {format(new Date(goal.deadline), "yyyy年M月d日", {
@@ -588,7 +588,7 @@ export default function GoalsPage() {
                           onClick={() =>
                             toggleGoalActive(goal.goal_id, goal.is_active)
                           }
-                          className={`rounded-full px-4 py-1 text-xs font-medium ${
+                          className={`rounded-full px-4 py-1 text-sm font-medium ${
                             goal.is_active
                               ? "bg-green-100 text-green-800"
                               : "bg-gray-200 text-gray-900"
@@ -603,21 +603,21 @@ export default function GoalsPage() {
                     <div className="mb-4 flex gap-2">
                       <button
                         onClick={() => startAddSavings(goal.goal_id)}
-                        className="flex items-center gap-1 rounded-md bg-green-50 px-3 py-1.5 text-sm font-medium text-green-600 hover:bg-green-100"
+                        className="flex items-center gap-1 rounded-md bg-green-50 px-3 py-2 text-base font-medium text-green-600 hover:bg-green-100"
                       >
                         <PiggyBank className="h-4 w-4" />
                         貯金を追加
                       </button>
                       <button
                         onClick={() => startEditGoal(goal)}
-                        className="flex items-center gap-1 rounded-md bg-blue-50 px-3 py-1.5 text-sm font-medium text-blue-600 hover:bg-blue-100"
+                        className="flex items-center gap-1 rounded-md bg-blue-50 px-3 py-2 text-base font-medium text-blue-600 hover:bg-blue-100"
                       >
                         <Edit2 className="h-4 w-4" />
                         編集
                       </button>
                       <button
                         onClick={() => setDeleteConfirm(goal.goal_id)}
-                        className="flex items-center gap-1 rounded-md bg-red-50 px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-100"
+                        className="flex items-center gap-1 rounded-md bg-red-50 px-3 py-2 text-base font-medium text-red-600 hover:bg-red-100"
                       >
                         <Trash2 className="h-4 w-4" />
                         削除
@@ -627,7 +627,7 @@ export default function GoalsPage() {
                     {/* 貯金追加フォーム */}
                     {addSavingsGoalId === goal.goal_id && (
                       <div className="mb-4 rounded-md bg-green-50 p-4">
-                        <p className="mb-3 text-sm font-medium text-green-800">
+                        <p className="mb-3 text-base font-medium text-green-800">
                           貯金額を入力してください
                         </p>
                         <div className="flex gap-2">
@@ -640,11 +640,11 @@ export default function GoalsPage() {
                             min="0"
                             step="100"
                             placeholder="金額を入力"
-                            className="flex-1 rounded-md border border-green-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-500 focus:border-green-500 focus:outline-none focus:ring-1 focus:ring-green-500"
+                            className="flex-1 rounded-md border border-green-300 bg-white px-3 py-2 text-base text-gray-900 placeholder:text-gray-500 focus:border-green-500 focus:outline-none focus:ring-1 focus:ring-green-500"
                           />
                           <button
                             onClick={() => handleAddSavings(goal)}
-                            className="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700"
+                            className="rounded-md bg-green-600 px-4 py-2 text-base font-medium text-white hover:bg-green-700"
                           >
                             追加
                           </button>

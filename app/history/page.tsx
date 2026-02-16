@@ -301,7 +301,7 @@ export default function HistoryPage() {
             {["日", "月", "火", "水", "木", "金", "土"].map((day, index) => (
               <div
                 key={day}
-                className={`text-center text-sm font-bold ${
+                className={`text-center text-base font-bold ${
                   index === 0
                     ? "text-red-500"
                     : index === 6
@@ -343,7 +343,7 @@ export default function HistoryPage() {
                 >
                   <div className="flex h-full flex-col items-center justify-start">
                     <span
-                      className={`text-sm font-bold leading-tight ${
+                      className={`text-base font-bold leading-tight ${
                         isSelected || isToday
                           ? "text-blue-600"
                           : isSunday
@@ -358,7 +358,7 @@ export default function HistoryPage() {
                     {total && (
                       <div className="w-full space-y-0">
                         {total.income > 0 && (
-                          <div className="text-[9px] font-semibold leading-tight text-blue-600 truncate px-0.5">
+                          <div className="text-[10px] font-bold leading-tight text-blue-600 truncate px-0.5">
                             +
                             {total.income >= 10000
                               ? `${Math.floor(total.income / 10000)}万`
@@ -366,7 +366,7 @@ export default function HistoryPage() {
                           </div>
                         )}
                         {total.expense > 0 && (
-                          <div className="text-[9px] font-semibold leading-tight text-red-600 truncate px-0.5">
+                          <div className="text-[10px] font-bold leading-tight text-red-600 truncate px-0.5">
                             -
                             {total.expense >= 10000
                               ? `${Math.floor(total.expense / 10000)}万`
@@ -384,7 +384,7 @@ export default function HistoryPage() {
           {selectedDate && (
             <button
               onClick={() => setSelectedDate(null)}
-              className="mt-4 w-full text-sm text-blue-600 hover:text-blue-700"
+              className="mt-4 w-full text-base text-blue-600 hover:text-blue-700"
             >
               すべての日付を表示
             </button>
@@ -393,14 +393,14 @@ export default function HistoryPage() {
 
         {/* 履歴リスト */}
         <div className="rounded-lg bg-white p-6 shadow">
-          <h2 className="mb-4 text-lg font-semibold text-gray-900">
+          <h2 className="mb-4 text-xl font-semibold text-gray-900">
             {selectedDate
               ? format(selectedDate, "M月d日(E)の履歴", { locale: ja })
               : "すべての履歴"}
           </h2>
 
           {filteredTransactions.length === 0 ? (
-            <p className="py-8 text-center text-sm text-gray-700">
+            <p className="py-8 text-center text-base text-gray-700">
               {selectedDate
                 ? "この日の履歴はありません"
                 : "まだ履歴がありません"}
@@ -427,15 +427,14 @@ export default function HistoryPage() {
                     className="border-b border-gray-100 pb-4 last:border-b-0"
                   >
                     {/* 日付ヘッダー */}
-                    <div className="mb-3 flex items-center justify-between">
-                      <h3 className="font-medium text-gray-900">
-                        {format(dateObj, "M月d日(E)", { locale: ja })}
-                      </h3>
+                    <div className="mb-3 flex items-center justify-between">                    <div className="text-lg font-semibold text-gray-900">
+                      {format(dateObj, "M月d日(E)", { locale: ja })}
+                    </div>
                       {total && (
-                        <div className="flex items-center gap-3 text-sm">
+                        <div className="flex items-center gap-3 text-base">
                           {total.income > 0 && (
                             <div className="flex items-center gap-1">
-                              <span className="text-xs text-gray-700">
+                              <span className="text-sm text-gray-700">
                                 収入
                               </span>
                               <span className="text-lg font-semibold text-blue-600">
@@ -445,7 +444,7 @@ export default function HistoryPage() {
                           )}
                           {total.expense > 0 && (
                             <div className="flex items-center gap-1">
-                              <span className="text-xs text-gray-700">
+                              <span className="text-sm text-gray-700">
                                 支出
                               </span>
                               <span className="text-lg font-semibold text-red-600">
@@ -458,66 +457,62 @@ export default function HistoryPage() {
                     </div>
 
                     {/* その日の取引リスト */}
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       {txs.map((transaction) => (
                         <div
                           key={transaction.transaction_id}
-                          className="rounded-lg border border-gray-100 p-3 hover:bg-gray-50"
+                          className="flex items-center justify-between border-b border-gray-100 pb-3 last:border-b-0 last:pb-0"
                         >
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center flex-1">
-                              <div
-                                className={`mr-3 rounded-full p-2 ${
-                                  transaction.type === "income"
-                                    ? "bg-blue-100"
-                                    : "bg-red-100"
-                                }`}
-                              >
-                                <span className="text-base">
-                                  {transaction.category?.icon || "💰"}
-                                </span>
-                              </div>
-                              <div className="flex-1">
-                                <div className="text-sm font-medium text-gray-900">
-                                  {transaction.category?.name || "未分類"}
-                                </div>
-                                {transaction.memo && (
-                                  <div className="mt-1 text-xs text-gray-600">
-                                    {transaction.memo}
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <span
-                                className={`text-lg font-semibold ${
-                                  transaction.type === "income"
-                                    ? "text-blue-600"
-                                    : "text-red-600"
-                                }`}
-                              >
-                                {transaction.type === "income" ? "+" : "-"}¥
-                                {Number(transaction.amount).toLocaleString()}
+                          <div className="flex items-center flex-1">
+                            <div
+                              className={`mr-3 rounded-full p-2 ${
+                                transaction.type === "income"
+                                  ? "bg-blue-100"
+                                  : "bg-red-100"
+                              }`}
+                            >
+                              <span className="text-xl">
+                                {transaction.category?.icon || "💰"}
                               </span>
-                              <button
-                                onClick={() =>
-                                  handleEditTransaction(transaction)
-                                }
-                                className="rounded p-1.5 text-gray-400 hover:bg-blue-50 hover:text-blue-600"
-                              >
-                                <Edit2 className="h-4 w-4" />
-                              </button>
-                              <button
-                                onClick={() =>
-                                  handleDeleteTransaction(
-                                    transaction.transaction_id,
-                                  )
-                                }
-                                className="rounded p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-600"
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </button>
                             </div>
+                            <div className="flex-1">
+                              <div className="text-lg font-semibold text-gray-900">
+                                {transaction.category?.name || "未分類"}
+                              </div>
+                              {transaction.memo && (
+                                <div className="text-base text-gray-700">
+                                  {transaction.memo}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span
+                              className={`text-xl font-semibold ${
+                                transaction.type === "income"
+                                  ? "text-blue-600"
+                                  : "text-red-600"
+                              }`}
+                            >
+                              {transaction.type === "income" ? "+" : "-"}¥
+                              {Number(transaction.amount).toLocaleString()}
+                            </span>
+                            <button
+                              onClick={() => handleEditTransaction(transaction)}
+                              className="rounded p-1.5 text-gray-400 hover:bg-blue-50 hover:text-blue-600"
+                            >
+                              <Edit2 className="h-4 w-4" />
+                            </button>
+                            <button
+                              onClick={() =>
+                                handleDeleteTransaction(
+                                  transaction.transaction_id,
+                                )
+                              }
+                              className="rounded p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-600"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </button>
                           </div>
                         </div>
                       ))}

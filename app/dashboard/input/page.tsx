@@ -198,21 +198,21 @@ export default function TransactionInputPage() {
       {/* メインコンテンツ */}
       <main className="mx-auto max-w-3xl px-4 py-6 sm:px-6 lg:px-8">
         <div className="rounded-lg bg-white p-6 shadow">
-          <h2 className="mb-6 text-center text-2xl font-bold text-gray-900">
+          <h2 className="mb-6 text-center text-3xl font-bold text-gray-900">
             入力
           </h2>
 
           {/* 成功メッセージ */}
           {success && (
             <div className="mb-4 rounded-md bg-green-50 p-4">
-              <p className="text-sm text-green-800">保存しました！</p>
+              <p className="text-lg font-semibold text-green-800">保存しました！</p>
             </div>
           )}
 
           {/* エラーメッセージ */}
           {error && (
             <div className="mb-4 rounded-md bg-red-50 p-4">
-              <p className="text-sm text-red-800">{error}</p>
+              <p className="text-lg font-semibold text-red-800">{error}</p>
             </div>
           )}
 
@@ -222,7 +222,7 @@ export default function TransactionInputPage() {
               <button
                 type="button"
                 onClick={() => setTransactionType("income")}
-                className={`rounded-md px-8 py-2 font-medium ${
+                className={`rounded-md px-8 py-3 text-lg font-semibold ${
                   transactionType === "income"
                     ? "bg-blue-600 text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -233,7 +233,7 @@ export default function TransactionInputPage() {
               <button
                 type="button"
                 onClick={() => setTransactionType("expense")}
-                className={`rounded-md px-8 py-2 font-medium ${
+                className={`rounded-md px-8 py-3 text-lg font-semibold ${
                   transactionType === "expense"
                     ? "bg-blue-600 text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -248,10 +248,10 @@ export default function TransactionInputPage() {
               <div>
                 <label
                   htmlFor="receipt-upload"
-                  className="flex cursor-pointer items-center justify-center gap-2 rounded-lg border-2 border-dashed border-blue-300 bg-blue-50 px-4 py-3 text-blue-600 transition-colors hover:border-blue-400 hover:bg-blue-100"
+                  className="flex cursor-pointer items-center justify-center gap-2 rounded-lg border-2 border-dashed border-blue-300 bg-blue-50 px-4 py-4 text-blue-600 transition-colors hover:border-blue-400 hover:bg-blue-100"
                 >
-                  <Camera className="h-5 w-5" />
-                  <span className="font-medium">
+                  <Camera className="h-6 w-6" />
+                  <span className="text-lg font-semibold">
                     {isProcessingReceipt ? "処理中..." : "レシートを読み取る"}
                   </span>
                 </label>
@@ -264,7 +264,7 @@ export default function TransactionInputPage() {
                   disabled={isProcessingReceipt}
                   className="hidden"
                 />
-                <p className="mt-1 text-xs text-gray-700">
+                <p className="mt-2 text-sm font-medium text-gray-700">
                   レシートの写真を撮影して自動入力
                 </p>
               </div>
@@ -272,23 +272,23 @@ export default function TransactionInputPage() {
 
             {/* 日付 */}
             <div>
-              <label className="block text-sm font-medium text-gray-900">
+              <label className="block text-lg font-semibold text-gray-900">
                 日付
               </label>
               <input
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-3 text-lg text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               />
-              <p className="mt-1 text-sm text-gray-700">
+              <p className="mt-2 text-base font-medium text-gray-700">
                 {format(new Date(date), "yyyy年M月d日(E)", { locale: ja })}
               </p>
             </div>
 
             {/* 金額 */}
             <div>
-              <label className="block text-sm font-medium text-gray-900">
+              <label className="block text-lg font-semibold text-gray-900">
                 金額
               </label>
               <input
@@ -299,20 +299,20 @@ export default function TransactionInputPage() {
                 min="0"
                 step="1"
                 placeholder="0"
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-3 text-xl font-semibold text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               />
             </div>
 
             {/* カテゴリー選択 */}
             <div>
-              <label className="block text-sm font-medium text-gray-900">
+              <label className="block text-lg font-semibold text-gray-900">
                 カテゴリー選択
               </label>
               <select
                 value={categoryId ?? ""}
                 onChange={(e) => setCategoryId(Number(e.target.value))}
                 required
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-3 text-lg font-medium text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               >
                 <option value="" disabled>
                   カテゴリーを選択
@@ -330,7 +330,7 @@ export default function TransactionInputPage() {
 
             {/* メモ */}
             <div>
-              <label className="block text-sm font-medium text-gray-900">
+              <label className="block text-lg font-semibold text-gray-900">
                 メモ(任意)
               </label>
               <textarea
@@ -338,7 +338,7 @@ export default function TransactionInputPage() {
                 onChange={(e) => setMemo(e.target.value)}
                 rows={3}
                 placeholder="メモを入力"
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-3 text-base text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               />
             </div>
 
@@ -346,7 +346,7 @@ export default function TransactionInputPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-md bg-blue-600 px-4 py-3 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="w-full rounded-md bg-blue-600 px-4 py-4 text-xl font-bold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? "保存中..." : "保存する"}
             </button>

@@ -225,7 +225,7 @@ export default function StatsPage() {
                 />
               </svg>
             </button>
-            <span className="text-lg font-semibold text-gray-900">
+            <span className="text-2xl font-bold text-gray-900">
               {format(currentMonth, "yyyy年M月", { locale: ja })}
             </span>
             <button
@@ -288,7 +288,7 @@ export default function StatsPage() {
                 {/* Summary Header */}
                 <div className="bg-white rounded-lg p-6 shadow mb-6">
                   <div className="text-center">
-                    <p className="text-base text-gray-900 mb-2">
+                    <p className="text-xl font-semibold text-gray-900 mb-2">
                       {activeTab === "expense" ? "今月の支出" : "今月の収入"}
                     </p>
                     <p className="text-4xl font-bold text-gray-900">
@@ -321,7 +321,7 @@ export default function StatsPage() {
                 {/* Category List */}
                 <div className="bg-white rounded-lg shadow overflow-hidden">
                   <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
-                    <h2 className="text-base font-semibold text-gray-900">
+                    <h2 className="text-xl font-bold text-gray-900">
                       カテゴリー別
                     </h2>
                   </div>
@@ -337,16 +337,16 @@ export default function StatsPage() {
                         <div key={index} className="px-6 py-4">
                           <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-3 flex-1">
-                              <span className="text-2xl">{category.icon}</span>
-                              <span className="text-base font-medium text-gray-900">
+                              <span className="text-3xl">{category.icon}</span>
+                              <span className="text-lg font-semibold text-gray-900">
                                 {category.name}
                               </span>
                             </div>
                             <div className="flex items-center gap-4">
-                              <span className="text-base font-medium text-gray-900 min-w-[3rem] text-right">
+                              <span className="text-lg font-semibold text-gray-900 min-w-[3rem] text-right">
                                 {percentage.toFixed(1)}%
                               </span>
-                              <span className="text-base font-semibold text-gray-900 min-w-[6rem] text-right">
+                              <span className="text-xl font-bold text-gray-900 min-w-[6rem] text-right">
                                 ¥{category.amount.toLocaleString()}
                               </span>
                             </div>

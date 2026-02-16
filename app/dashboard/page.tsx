@@ -223,7 +223,7 @@ export default function DashboardHome() {
       <main className="mx-auto max-w-3xl px-4 py-6 sm:px-6 lg:px-8">
         {/* 今月のサマリーカード */}
         <div className="mb-6 rounded-lg bg-white p-6 shadow">
-          <h2 className="mb-4 text-xl font-semibold text-gray-900">
+          <h2 className="mb-4 text-2xl font-bold text-gray-900">
             今月のサマリー
           </h2>
 
@@ -234,9 +234,9 @@ export default function DashboardHome() {
                 <div className="mr-3 rounded-full bg-blue-100 p-2">
                   <TrendingUp className="h-6 w-6 text-blue-600" />
                 </div>
-                <span className="text-base text-gray-900">今月の収入</span>
+                <span className="text-lg text-gray-900">今月の収入</span>
               </div>
-              <span className="text-xl font-semibold text-gray-900">
+              <span className="text-2xl font-bold text-gray-900">
                 ¥{summary.totalIncome.toLocaleString()}
               </span>
             </div>
@@ -247,9 +247,9 @@ export default function DashboardHome() {
                 <div className="mr-3 rounded-full bg-red-100 p-2">
                   <TrendingDown className="h-6 w-6 text-red-600" />
                 </div>
-                <span className="text-base text-gray-900">今月の支出</span>
+                <span className="text-lg text-gray-900">今月の支出</span>
               </div>
-              <span className="text-xl font-semibold text-gray-900">
+              <span className="text-2xl font-bold text-gray-900">
                 ¥{summary.totalExpense.toLocaleString()}
               </span>
             </div>
@@ -260,9 +260,9 @@ export default function DashboardHome() {
                 <div className="mr-3 rounded-full bg-purple-100 p-2">
                   <Target className="h-6 w-6 text-purple-600" />
                 </div>
-                <span className="text-base text-gray-900">目標貯金</span>
+                <span className="text-lg text-gray-900">目標貯金</span>
               </div>
-              <span className="text-xl font-semibold text-gray-900">
+              <span className="text-2xl font-bold text-gray-900">
                 ¥{summary.totalGoalsSavings.toLocaleString()}
               </span>
             </div>
@@ -272,7 +272,7 @@ export default function DashboardHome() {
 
             {/* 残り使えるお金 */}
             <div className="rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 p-4">
-              <div className="mb-2 text-center text-base text-gray-900">
+              <div className="mb-2 text-center text-lg text-gray-900 font-medium">
                 残り使えるお金
               </div>
               <div className="text-center text-4xl font-bold text-indigo-600">
@@ -286,13 +286,13 @@ export default function DashboardHome() {
         {activeGoals.length > 0 && (
           <div className="mb-6 rounded-lg bg-white p-6 shadow">
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-gray-900">
+              <h2 className="text-2xl font-bold text-gray-900">
                 <Target className="mb-1 mr-2 inline-block h-6 w-6" />
                 目標貯金
               </h2>
               <button
                 onClick={() => router.push("/dashboard/goals")}
-                className="text-base text-blue-600 hover:text-blue-700"
+                className="text-lg text-blue-600 hover:text-blue-700 font-medium"
               >
                 すべて見る →
               </button>
@@ -302,10 +302,10 @@ export default function DashboardHome() {
               {activeGoals.slice(0, 3).map((goal) => (
                 <div key={goal.goal_id}>
                   <div className="mb-2 flex items-center justify-between">
-                    <span className="text-base font-medium text-gray-900">
+                    <span className="text-lg font-semibold text-gray-900">
                       {goal.goal_name}
                     </span>
-                    <span className="text-base font-medium text-blue-600">
+                    <span className="text-lg font-semibold text-blue-600">
                       {goal.progress_percentage.toFixed(0)}%
                     </span>
                   </div>
@@ -315,7 +315,7 @@ export default function DashboardHome() {
                       style={{ width: `${goal.progress_percentage}%` }}
                     />
                   </div>
-                  <div className="mt-1 flex items-center justify-between text-sm text-gray-700">
+                  <div className="mt-1 flex items-center justify-between text-base text-gray-700">
                     <span>
                       ¥{goal.current_amount.toLocaleString()} / ¥
                       {goal.target_amount.toLocaleString()}
@@ -335,10 +335,10 @@ export default function DashboardHome() {
         {/* 直近の履歴 */}
         <div className="mb-6 rounded-lg bg-white p-6 shadow">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-xl font-semibold text-gray-900">直近の履歴</h2>
+            <h2 className="text-2xl font-bold text-gray-900">直近の履歴</h2>
             <button
               onClick={() => router.push("/history")}
-              className="text-base text-blue-600 hover:text-blue-700"
+              className="text-lg text-blue-600 hover:text-blue-700 font-medium"
             >
               すべて見る →
             </button>
@@ -368,10 +368,10 @@ export default function DashboardHome() {
                       </span>
                     </div>
                     <div>
-                      <div className="text-base font-medium text-gray-900">
+                      <div className="text-lg font-semibold text-gray-900">
                         {transaction.category?.name || "未分類"}
                       </div>
-                      <div className="text-sm text-gray-700">
+                      <div className="text-base text-gray-700">
                         {format(new Date(transaction.date), "M月d日(E)", {
                           locale: ja,
                         })}
