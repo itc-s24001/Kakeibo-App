@@ -49,6 +49,7 @@ export default function HistoryPage() {
   const [editAmount, setEditAmount] = useState("");
   const [editCategoryId, setEditCategoryId] = useState<number | null>(null);
   const [editDate, setEditDate] = useState("");
+  const [editMemo, setEditMemo] = useState("");
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -172,6 +173,7 @@ export default function HistoryPage() {
     setEditAmount(transaction.amount.toString());
     setEditCategoryId(transaction.category_id);
     setEditDate(transaction.date);
+    setEditMemo(transaction.memo || "");
   };
 
   const handleSaveEdit = async () => {
@@ -188,6 +190,7 @@ export default function HistoryPage() {
           amount: Number(editAmount),
           category_id: editCategoryId,
           date: editDate,
+          memo: editMemo || null,
         })
         .eq("transaction_id", editingTransaction.transaction_id);
 
@@ -206,6 +209,7 @@ export default function HistoryPage() {
     setEditAmount("");
     setEditCategoryId(null);
     setEditDate("");
+    setEditMemo("");
   };
 
   // カレンダーの日付を生成
@@ -458,53 +462,62 @@ export default function HistoryPage() {
                       {txs.map((transaction) => (
                         <div
                           key={transaction.transaction_id}
-                          className="flex items-center justify-between rounded-lg border border-gray-100 p-3 hover:bg-gray-50"
+                          className="rounded-lg border border-gray-100 p-3 hover:bg-gray-50"
                         >
-                          <div className="flex items-center">
-                            <div
-                              className={`mr-3 rounded-full p-2 ${
-                                transaction.type === "income"
-                                  ? "bg-blue-100"
-                                  : "bg-red-100"
-                              }`}
-                            >
-                              <span className="text-base">
-                                {transaction.category?.icon || "💰"}
-                              </span>
-                            </div>
-                            <div>
-                              <div className="text-sm font-medium text-gray-900">
-                                {transaction.category?.name || "未分類"}
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center flex-1">
+                              <div
+                                className={`mr-3 rounded-full p-2 ${
+                                  transaction.type === "income"
+                                    ? "bg-blue-100"
+                                    : "bg-red-100"
+                                }`}
+                              >
+                                <span className="text-base">
+                                  {transaction.category?.icon || "💰"}
+                                </span>
+                              </div>
+                              <div className="flex-1">
+                                <div className="text-sm font-medium text-gray-900">
+                                  {transaction.category?.name || "未分類"}
+                                </div>
+                                {transaction.memo && (
+                                  <div className="mt-1 text-xs text-gray-600">
+                                    {transaction.memo}
+                                  </div>
+                                )}
                               </div>
                             </div>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <span
-                              className={`text-lg font-semibold ${
-                                transaction.type === "income"
-                                  ? "text-blue-600"
-                                  : "text-red-600"
-                              }`}
-                            >
-                              {transaction.type === "income" ? "+" : "-"}¥
-                              {Number(transaction.amount).toLocaleString()}
-                            </span>
-                            <button
-                              onClick={() => handleEditTransaction(transaction)}
-                              className="rounded p-1.5 text-gray-400 hover:bg-blue-50 hover:text-blue-600"
-                            >
-                              <Edit2 className="h-4 w-4" />
-                            </button>
-                            <button
-                              onClick={() =>
-                                handleDeleteTransaction(
-                                  transaction.transaction_id,
-                                )
-                              }
-                              className="rounded p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-600"
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </button>
+                            <div className="flex items-center gap-2">
+                              <span
+                                className={`text-lg font-semibold ${
+                                  transaction.type === "income"
+                                    ? "text-blue-600"
+                                    : "text-red-600"
+                                }`}
+                              >
+                                {transaction.type === "income" ? "+" : "-"}¥
+                                {Number(transaction.amount).toLocaleString()}
+                              </span>
+                              <button
+                                onClick={() =>
+                                  handleEditTransaction(transaction)
+                                }
+                                className="rounded p-1.5 text-gray-400 hover:bg-blue-50 hover:text-blue-600"
+                              >
+                                <Edit2 className="h-4 w-4" />
+                              </button>
+                              <button
+                                onClick={() =>
+                                  handleDeleteTransaction(
+                                    transaction.transaction_id,
+                                  )
+                                }
+                                className="rounded p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-600"
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </button>
+                            </div>
                           </div>
                         </div>
                       ))}
@@ -574,6 +587,20 @@ export default function HistoryPage() {
                   value={editDate}
                   onChange={(e) => setEditDate(e.target.value)}
                   className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-900 focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+
+              {/* メモ */}
+              <div>
+                <label className="mb-1 block text-sm font-medium text-gray-900">
+                  メモ（任意）
+                </label>
+                <textarea
+                  value={editMemo}
+                  onChange={(e) => setEditMemo(e.target.value)}
+                  className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-900 focus:border-blue-500 focus:outline-none resize-none"
+                  rows={3}
+                  placeholder="メモを入力"
                 />
               </div>
             </div>
