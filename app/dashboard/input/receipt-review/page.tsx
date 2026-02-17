@@ -269,7 +269,9 @@ function ReceiptReviewContent() {
               >
                 <div className="mb-2 flex items-start justify-between">
                   <div className="flex-1">
-                    <p className="text-base font-semibold text-gray-800">{item.name}</p>
+                    <p className="text-base font-semibold text-gray-800">
+                      {item.name}
+                    </p>
                     <p className="text-xl font-bold text-blue-600">
                       ¥{item.price.toLocaleString()}
                     </p>

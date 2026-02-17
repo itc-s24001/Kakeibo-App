@@ -205,7 +205,9 @@ export default function TransactionInputPage() {
           {/* 成功メッセージ */}
           {success && (
             <div className="mb-4 rounded-md bg-green-50 p-4">
-              <p className="text-lg font-semibold text-green-800">保存しました！</p>
+              <p className="text-lg font-semibold text-green-800">
+                保存しました！
+              </p>
             </div>
           )}
 

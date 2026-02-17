@@ -358,7 +358,7 @@ export default function HistoryPage() {
                     {total && (
                       <div className="w-full space-y-0">
                         {total.income > 0 && (
-                          <div className="text-[10px] font-bold leading-tight text-blue-600 truncate px-0.5">
+                          <div className="text-xs font-bold leading-tight text-blue-600 truncate px-0.5">
                             +
                             {total.income >= 10000
                               ? `${Math.floor(total.income / 10000)}万`
@@ -366,7 +366,7 @@ export default function HistoryPage() {
                           </div>
                         )}
                         {total.expense > 0 && (
-                          <div className="text-[10px] font-bold leading-tight text-red-600 truncate px-0.5">
+                          <div className="text-xs font-bold leading-tight text-red-600 truncate px-0.5">
                             -
                             {total.expense >= 10000
                               ? `${Math.floor(total.expense / 10000)}万`
