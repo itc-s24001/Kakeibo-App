@@ -51,6 +51,8 @@ export default function HistoryPage() {
   const [editDate, setEditDate] = useState("");
   const [editMemo, setEditMemo] = useState("");
 
+  // ...existing code...
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
     router.push("/login");
@@ -242,7 +244,7 @@ export default function HistoryPage() {
   if (authLoading || loading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <div className="text-xl">読み込み中...</div>
+        <div className="text-lg sm:text-xl">読み込み中...</div>
       </div>
     );
   }
@@ -259,13 +261,15 @@ export default function HistoryPage() {
       {/* ヘッダー */}
       <nav className="bg-white shadow">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
+          <div className="flex h-14 sm:h-16 items-center justify-between">
             <div className="flex items-center">
-              <span className="text-xl font-bold text-gray-900">ためるん</span>
+              <span className="text-lg sm:text-xl font-bold text-gray-900">
+                ためるん
+              </span>
             </div>
             <button
               onClick={handleLogout}
-              className="text-base text-gray-900 hover:text-gray-900"
+              className="text-sm sm:text-base text-gray-900 hover:text-gray-700 px-2 py-1"
             >
               ログアウト
             </button>
@@ -274,34 +278,34 @@ export default function HistoryPage() {
       </nav>
 
       {/* メインコンテンツ */}
-      <main className="mx-auto max-w-3xl px-4 py-6 sm:px-6 lg:px-8">
+      <main className="mx-auto max-w-3xl px-3 sm:px-4 py-4 sm:py-6 lg:px-8">
         {/* カレンダーカード */}
-        <div className="mb-6 rounded-lg bg-white p-6 shadow">
+        <div className="mb-4 sm:mb-6 rounded-lg bg-white p-3 sm:p-4 md:p-6 shadow">
           {/* 月の選択 */}
-          <div className="mb-4 flex items-center justify-between">
+          <div className="mb-3 sm:mb-4 flex items-center justify-between">
             <button
               onClick={handlePreviousMonth}
-              className="rounded-full p-2 hover:bg-gray-100"
+              className="rounded-full p-1.5 sm:p-2 hover:bg-gray-100 active:bg-gray-200"
             >
-              <ChevronLeft className="h-5 w-5" />
+              <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
             </button>
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900">
               {format(currentMonth, "yyyy年M月", { locale: ja })}
             </h2>
             <button
               onClick={handleNextMonth}
-              className="rounded-full p-2 hover:bg-gray-100"
+              className="rounded-full p-1.5 sm:p-2 hover:bg-gray-100 active:bg-gray-200"
             >
-              <ChevronRight className="h-5 w-5" />
+              <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
             </button>
           </div>
 
           {/* 曜日ヘッダー */}
-          <div className="mb-3 grid grid-cols-7 gap-2">
+          <div className="mb-2 sm:mb-3 grid grid-cols-7 gap-1 sm:gap-2">
             {["日", "月", "火", "水", "木", "金", "土"].map((day, index) => (
               <div
                 key={day}
-                className={`text-center text-base font-bold ${
+                className={`text-center text-xs sm:text-sm md:text-base font-bold ${
                   index === 0
                     ? "text-red-500"
                     : index === 6
@@ -315,7 +319,7 @@ export default function HistoryPage() {
           </div>
 
           {/* カレンダーグリッド */}
-          <div className="grid grid-cols-7 gap-1">
+          <div className="grid grid-cols-7 gap-0.5 sm:gap-1 md:gap-2">
             {calendarDays.map((day, index) => {
               if (!day) {
                 return <div key={`blank-${index}`} className="aspect-square" />;
@@ -333,17 +337,17 @@ export default function HistoryPage() {
                 <button
                   key={dateStr}
                   onClick={() => handleDateClick(day)}
-                  className={`relative aspect-square rounded-lg border p-0.5 text-xs transition-all overflow-hidden ${
+                  className={`relative aspect-square rounded-md sm:rounded-lg border p-0.5 sm:p-1 md:p-2 text-xs transition-all overflow-hidden ${
                     isSelected
                       ? "border-blue-500 bg-blue-50 shadow-md"
                       : isToday
                         ? "border-blue-400 bg-blue-50"
-                        : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
+                        : "border-gray-200 hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100"
                   }`}
                 >
                   <div className="flex h-full flex-col items-center justify-start">
                     <span
-                      className={`text-base font-bold leading-tight ${
+                      className={`text-xs sm:text-sm md:text-base font-bold leading-tight ${
                         isSelected || isToday
                           ? "text-blue-600"
                           : isSunday
@@ -356,9 +360,9 @@ export default function HistoryPage() {
                       {format(day, "d")}
                     </span>
                     {total && (
-                      <div className="w-full space-y-0">
+                      <div className="w-full space-y-0 mt-0.5">
                         {total.income > 0 && (
-                          <div className="text-xs font-bold leading-tight text-blue-600 truncate px-0.5">
+                          <div className="text-[9px] sm:text-[10px] md:text-xs font-bold leading-tight text-blue-600 truncate px-0.5">
                             +
                             {total.income >= 10000
                               ? `${Math.floor(total.income / 10000)}万`
@@ -366,7 +370,7 @@ export default function HistoryPage() {
                           </div>
                         )}
                         {total.expense > 0 && (
-                          <div className="text-xs font-bold leading-tight text-red-600 truncate px-0.5">
+                          <div className="text-[9px] sm:text-[10px] md:text-xs font-bold leading-tight text-red-600 truncate px-0.5">
                             -
                             {total.expense >= 10000
                               ? `${Math.floor(total.expense / 10000)}万`
@@ -384,7 +388,7 @@ export default function HistoryPage() {
           {selectedDate && (
             <button
               onClick={() => setSelectedDate(null)}
-              className="mt-4 w-full text-base text-blue-600 hover:text-blue-700"
+              className="mt-3 sm:mt-4 w-full text-sm sm:text-base text-blue-600 hover:text-blue-700 py-2"
             >
               すべての日付を表示
             </button>
@@ -392,21 +396,21 @@ export default function HistoryPage() {
         </div>
 
         {/* 履歴リスト */}
-        <div className="rounded-lg bg-white p-6 shadow">
-          <h2 className="mb-4 text-xl font-semibold text-gray-900">
+        <div className="rounded-lg bg-white p-3 sm:p-4 md:p-6 shadow">
+          <h2 className="mb-3 sm:mb-4 text-base sm:text-lg md:text-xl font-semibold text-gray-900">
             {selectedDate
               ? format(selectedDate, "M月d日(E)の履歴", { locale: ja })
               : "すべての履歴"}
           </h2>
 
           {filteredTransactions.length === 0 ? (
-            <p className="py-8 text-center text-base text-gray-700">
+            <p className="py-6 sm:py-8 text-center text-sm sm:text-base text-gray-700">
               {selectedDate
                 ? "この日の履歴はありません"
                 : "まだ履歴がありません"}
             </p>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {/* 日付ごとにグループ化 */}
               {Array.from(
                 filteredTransactions.reduce((acc, tx) => {
@@ -424,30 +428,31 @@ export default function HistoryPage() {
                 return (
                   <div
                     key={date}
-                    className="border-b border-gray-100 pb-4 last:border-b-0"
+                    className="border-b border-gray-100 pb-3 sm:pb-4 last:border-b-0"
                   >
                     {/* 日付ヘッダー */}
-                    <div className="mb-3 flex items-center justify-between">                    <div className="text-lg font-semibold text-gray-900">
-                      {format(dateObj, "M月d日(E)", { locale: ja })}
-                    </div>
+                    <div className="mb-2 sm:mb-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                      <div className="text-base sm:text-lg font-semibold text-gray-900">
+                        {format(dateObj, "M月d日(E)", { locale: ja })}
+                      </div>
                       {total && (
-                        <div className="flex items-center gap-3 text-base">
+                        <div className="flex items-center gap-2 sm:gap-3 text-sm sm:text-base flex-wrap">
                           {total.income > 0 && (
                             <div className="flex items-center gap-1">
-                              <span className="text-sm text-gray-700">
+                              <span className="text-xs sm:text-sm text-gray-700">
                                 収入
                               </span>
-                              <span className="text-lg font-semibold text-blue-600">
+                              <span className="text-base sm:text-lg font-semibold text-blue-600">
                                 +¥{total.income.toLocaleString()}
                               </span>
                             </div>
                           )}
                           {total.expense > 0 && (
                             <div className="flex items-center gap-1">
-                              <span className="text-sm text-gray-700">
+                              <span className="text-xs sm:text-sm text-gray-700">
                                 支出
                               </span>
-                              <span className="text-lg font-semibold text-red-600">
+                              <span className="text-base sm:text-lg font-semibold text-red-600">
                                 -¥{total.expense.toLocaleString()}
                               </span>
                             </div>
@@ -457,38 +462,38 @@ export default function HistoryPage() {
                     </div>
 
                     {/* その日の取引リスト */}
-                    <div className="space-y-3">
+                    <div className="space-y-2 sm:space-y-3">
                       {txs.map((transaction) => (
                         <div
                           key={transaction.transaction_id}
-                          className="flex items-center justify-between border-b border-gray-100 pb-3 last:border-b-0 last:pb-0"
+                          className="flex items-start sm:items-center justify-between border-b border-gray-100 pb-2 sm:pb-3 last:border-b-0 last:pb-0 gap-2"
                         >
-                          <div className="flex items-center flex-1">
+                          <div className="flex items-start sm:items-center flex-1 min-w-0">
                             <div
-                              className={`mr-3 rounded-full p-2 ${
+                              className={`mr-2 sm:mr-3 rounded-full p-1.5 sm:p-2 flex-shrink-0 ${
                                 transaction.type === "income"
                                   ? "bg-blue-100"
                                   : "bg-red-100"
                               }`}
                             >
-                              <span className="text-xl">
+                              <span className="text-lg sm:text-xl">
                                 {transaction.category?.icon || "💰"}
                               </span>
                             </div>
-                            <div className="flex-1">
-                              <div className="text-lg font-semibold text-gray-900">
+                            <div className="flex-1 min-w-0">
+                              <div className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 truncate">
                                 {transaction.category?.name || "未分類"}
                               </div>
                               {transaction.memo && (
-                                <div className="text-base text-gray-700">
+                                <div className="text-xs sm:text-sm text-gray-700 line-clamp-2 mt-0.5">
                                   {transaction.memo}
                                 </div>
                               )}
                             </div>
                           </div>
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
                             <span
-                              className={`text-xl font-semibold ${
+                              className={`text-sm sm:text-base md:text-xl font-semibold whitespace-nowrap ${
                                 transaction.type === "income"
                                   ? "text-blue-600"
                                   : "text-red-600"
@@ -499,9 +504,9 @@ export default function HistoryPage() {
                             </span>
                             <button
                               onClick={() => handleEditTransaction(transaction)}
-                              className="rounded p-1.5 text-gray-400 hover:bg-blue-50 hover:text-blue-600"
+                              className="rounded p-1 sm:p-1.5 text-gray-400 hover:bg-blue-50 hover:text-blue-600 active:bg-blue-100"
                             >
-                              <Edit2 className="h-4 w-4" />
+                              <Edit2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                             </button>
                             <button
                               onClick={() =>
@@ -509,9 +514,9 @@ export default function HistoryPage() {
                                   transaction.transaction_id,
                                 )
                               }
-                              className="rounded p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-600"
+                              className="rounded p-1 sm:p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-600 active:bg-red-100"
                             >
-                              <Trash2 className="h-4 w-4" />
+                              <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                             </button>
                           </div>
                         </div>
@@ -527,36 +532,36 @@ export default function HistoryPage() {
 
       {/* 編集モーダル */}
       {editingTransaction && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
-          <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
-            <h3 className="mb-4 text-lg font-semibold text-gray-900">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-3 sm:p-4">
+          <div className="w-full max-w-md rounded-lg bg-white p-4 sm:p-6 shadow-xl max-h-[90vh] overflow-y-auto">
+            <h3 className="mb-3 sm:mb-4 text-base sm:text-lg font-semibold text-gray-900">
               取引を編集
             </h3>
 
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {/* 金額 */}
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-900">
+                <label className="mb-1 block text-xs sm:text-sm font-medium text-gray-900">
                   金額
                 </label>
                 <input
                   type="number"
                   value={editAmount}
                   onChange={(e) => setEditAmount(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-900 focus:border-blue-500 focus:outline-none"
+                  className="w-full rounded-lg border border-gray-300 px-3 sm:px-4 py-2 text-sm sm:text-base text-gray-900 focus:border-blue-500 focus:outline-none"
                   placeholder="金額を入力"
                 />
               </div>
 
               {/* カテゴリー */}
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-900">
+                <label className="mb-1 block text-xs sm:text-sm font-medium text-gray-900">
                   カテゴリー
                 </label>
                 <select
                   value={editCategoryId || ""}
                   onChange={(e) => setEditCategoryId(Number(e.target.value))}
-                  className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-900 focus:border-blue-500 focus:outline-none"
+                  className="w-full rounded-lg border border-gray-300 px-3 sm:px-4 py-2 text-sm sm:text-base text-gray-900 focus:border-blue-500 focus:outline-none"
                 >
                   <option value="">カテゴリーを選択</option>
                   {categories
@@ -574,26 +579,26 @@ export default function HistoryPage() {
 
               {/* 日付 */}
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-900">
+                <label className="mb-1 block text-xs sm:text-sm font-medium text-gray-900">
                   日付
                 </label>
                 <input
                   type="date"
                   value={editDate}
                   onChange={(e) => setEditDate(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-900 focus:border-blue-500 focus:outline-none"
+                  className="w-full rounded-lg border border-gray-300 px-3 sm:px-4 py-2 text-sm sm:text-base text-gray-900 focus:border-blue-500 focus:outline-none"
                 />
               </div>
 
               {/* メモ */}
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-900">
+                <label className="mb-1 block text-xs sm:text-sm font-medium text-gray-900">
                   メモ（任意）
                 </label>
                 <textarea
                   value={editMemo}
                   onChange={(e) => setEditMemo(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-900 focus:border-blue-500 focus:outline-none resize-none"
+                  className="w-full rounded-lg border border-gray-300 px-3 sm:px-4 py-2 text-sm sm:text-base text-gray-900 focus:border-blue-500 focus:outline-none resize-none"
                   rows={3}
                   placeholder="メモを入力"
                 />
@@ -601,16 +606,16 @@ export default function HistoryPage() {
             </div>
 
             {/* ボタン */}
-            <div className="mt-6 flex gap-3">
+            <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row gap-2 sm:gap-3">
               <button
                 onClick={handleCancelEdit}
-                className="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50"
+                className="w-full sm:flex-1 rounded-lg border border-gray-300 px-4 py-2.5 sm:py-2 text-sm sm:text-base text-gray-700 hover:bg-gray-50 active:bg-gray-100"
               >
                 キャンセル
               </button>
               <button
                 onClick={handleSaveEdit}
-                className="flex-1 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+                className="w-full sm:flex-1 rounded-lg bg-blue-600 px-4 py-2.5 sm:py-2 text-sm sm:text-base text-white hover:bg-blue-700 active:bg-blue-800"
               >
                 保存
               </button>
@@ -620,43 +625,45 @@ export default function HistoryPage() {
       )}
 
       {/* フッターナビゲーション */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-white shadow-lg">
+      <nav className="fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t border-gray-200">
         <div className="mx-auto max-w-3xl">
-          <div className="flex justify-around p-3">
+          <div className="flex justify-around p-2 sm:p-3">
             <button
               onClick={() => router.push("/dashboard")}
-              className="flex flex-col items-center gap-1 text-xs text-gray-900 hover:text-blue-600"
+              className="flex flex-col items-center gap-0.5 sm:gap-1 text-xs text-gray-900 hover:text-blue-600 active:text-blue-700 py-1 px-2"
             >
-              <span className="text-2xl">🏠</span>
-              <span className="text-[11px]">ホーム</span>
+              <span className="text-xl sm:text-2xl">🏠</span>
+              <span className="text-[10px] sm:text-[11px]">ホーム</span>
             </button>
             <button
               onClick={() => router.push("/history")}
-              className="flex flex-col items-center gap-1 text-xs text-blue-600"
+              className="flex flex-col items-center gap-0.5 sm:gap-1 text-xs text-blue-600 py-1 px-2"
             >
-              <span className="text-2xl">📋</span>
-              <span className="text-[11px] font-medium">履歴</span>
+              <span className="text-xl sm:text-2xl">📋</span>
+              <span className="text-[10px] sm:text-[11px] font-medium">
+                履歴
+              </span>
             </button>
             <button
               onClick={() => router.push("/dashboard/input")}
-              className="flex flex-col items-center gap-1 text-xs text-gray-900 hover:text-blue-600"
+              className="flex flex-col items-center gap-0.5 sm:gap-1 text-xs text-gray-900 hover:text-blue-600 active:text-blue-700 py-1 px-2"
             >
-              <span className="text-2xl">➕</span>
-              <span className="text-[11px]">入力</span>
+              <span className="text-xl sm:text-2xl">➕</span>
+              <span className="text-[10px] sm:text-[11px]">入力</span>
             </button>
             <button
               onClick={() => router.push("/dashboard/stats")}
-              className="flex flex-col items-center gap-1 text-xs text-gray-900 hover:text-blue-600"
+              className="flex flex-col items-center gap-0.5 sm:gap-1 text-xs text-gray-900 hover:text-blue-600 active:text-blue-700 py-1 px-2"
             >
-              <span className="text-2xl">📊</span>
-              <span className="text-[11px]">グラフ</span>
+              <span className="text-xl sm:text-2xl">📊</span>
+              <span className="text-[10px] sm:text-[11px]">グラフ</span>
             </button>
             <button
               onClick={() => router.push("/dashboard/goals")}
-              className="flex flex-col items-center gap-1 text-xs text-gray-900 hover:text-blue-600"
+              className="flex flex-col items-center gap-0.5 sm:gap-1 text-xs text-gray-900 hover:text-blue-600 active:text-blue-700 py-1 px-2"
             >
-              <span className="text-2xl">🎯</span>
-              <span className="text-[11px]">目標</span>
+              <span className="text-xl sm:text-2xl">🎯</span>
+              <span className="text-[10px] sm:text-[11px]">目標</span>
             </button>
           </div>
         </div>
