@@ -44,6 +44,8 @@ export default function HistoryPage() {
   const [editingTransaction, setEditingTransaction] =
     useState<TransactionWithCategory | null>(null);
   const [categories, setCategories] = useState<CategoryRow[]>([]);
+  const [viewingTransaction, setViewingTransaction] =
+    useState<TransactionWithCategory | null>(null);
 
   // 編集フォームの状態
   const [editAmount, setEditAmount] = useState("");
@@ -468,7 +470,10 @@ export default function HistoryPage() {
                           key={transaction.transaction_id}
                           className="flex items-start sm:items-center justify-between border-b border-gray-100 pb-2 sm:pb-3 last:border-b-0 last:pb-0 gap-2"
                         >
-                          <div className="flex items-start sm:items-center flex-1 min-w-0">
+                          <button
+                            onClick={() => setViewingTransaction(transaction)}
+                            className="flex items-start sm:items-center flex-1 min-w-0 text-left hover:bg-gray-50 active:bg-gray-100 rounded-lg p-1 -ml-1 transition-colors"
+                          >
                             <div
                               className={`mr-2 sm:mr-3 rounded-full p-1.5 sm:p-2 flex-shrink-0 ${
                                 transaction.type === "income"
@@ -484,13 +489,8 @@ export default function HistoryPage() {
                               <div className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 truncate">
                                 {transaction.category?.name || "未分類"}
                               </div>
-                              {transaction.memo && (
-                                <div className="text-xs sm:text-sm text-gray-700 line-clamp-2 mt-0.5">
-                                  {transaction.memo}
-                                </div>
-                              )}
                             </div>
-                          </div>
+                          </button>
                           <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
                             <span
                               className={`text-sm sm:text-base md:text-xl font-semibold whitespace-nowrap ${
@@ -529,6 +529,115 @@ export default function HistoryPage() {
           )}
         </div>
       </main>
+
+      {/* 詳細表示モーダル */}
+      {viewingTransaction && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-3 sm:p-4">
+          <div className="w-full max-w-md rounded-lg bg-white p-4 sm:p-6 shadow-xl max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+                取引詳細
+              </h3>
+              <button
+                onClick={() => setViewingTransaction(null)}
+                className="text-gray-400 hover:text-gray-600 text-2xl leading-none"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              {/* カテゴリー */}
+              <div className="flex items-center gap-3">
+                <div
+                  className={`rounded-full p-3 ${
+                    viewingTransaction.type === "income"
+                      ? "bg-blue-100"
+                      : "bg-red-100"
+                  }`}
+                >
+                  <span className="text-3xl">
+                    {viewingTransaction.category?.icon || "💰"}
+                  </span>
+                </div>
+                <div>
+                  <div className="text-xs sm:text-sm text-gray-700">
+                    カテゴリー
+                  </div>
+                  <div className="text-lg sm:text-xl font-semibold text-gray-900">
+                    {viewingTransaction.category?.name || "未分類"}
+                  </div>
+                </div>
+              </div>
+
+              {/* 金額 */}
+              <div className="border-t pt-4">
+                <div className="text-xs sm:text-sm text-gray-700 mb-1">
+                  金額
+                </div>
+                <div
+                  className={`text-2xl sm:text-3xl font-bold ${
+                    viewingTransaction.type === "income"
+                      ? "text-blue-600"
+                      : "text-red-600"
+                  }`}
+                >
+                  {viewingTransaction.type === "income" ? "+" : "-"}¥
+                  {Number(viewingTransaction.amount).toLocaleString()}
+                </div>
+              </div>
+
+              {/* 日付 */}
+              <div className="border-t pt-4">
+                <div className="text-xs sm:text-sm text-gray-700 mb-1">
+                  日付
+                </div>
+                <div className="text-base sm:text-lg text-gray-900">
+                  {format(
+                    parseISO(viewingTransaction.date),
+                    "yyyy年M月d日(E)",
+                    {
+                      locale: ja,
+                    },
+                  )}
+                </div>
+              </div>
+
+              {/* メモ */}
+              {viewingTransaction.memo && (
+                <div className="border-t pt-4">
+                  <div className="text-xs sm:text-sm text-gray-700 mb-1">
+                    メモ
+                  </div>
+                  <div className="text-sm sm:text-base text-gray-900 whitespace-pre-wrap break-words">
+                    {viewingTransaction.memo}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* ボタン */}
+            <div className="mt-6 flex flex-col sm:flex-row gap-2 sm:gap-3">
+              <button
+                onClick={() => {
+                  setViewingTransaction(null);
+                  handleEditTransaction(viewingTransaction);
+                }}
+                className="w-full sm:flex-1 rounded-lg bg-blue-600 px-4 py-2.5 sm:py-2 text-sm sm:text-base text-white hover:bg-blue-700 active:bg-blue-800 flex items-center justify-center gap-2"
+              >
+                <Edit2 className="h-4 w-4" />
+                編集
+              </button>
+              <button
+                onClick={() => setViewingTransaction(null)}
+                className="w-full sm:flex-1 rounded-lg border border-gray-300 px-4 py-2.5 sm:py-2 text-sm sm:text-base text-gray-700 hover:bg-gray-50 active:bg-gray-100"
+              >
+                閉じる
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 編集モーダル */}
       {editingTransaction && (
